@@ -1,0 +1,494 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Motion estimation is the task of inferring motion information for each pixel
+ from subsequent frames in a video.
+ One approach infers this information from the motion of the intensity patterns
+ across the frames, which are typically correlated with the underlying motion.
+ The motion of the intensity pattern is known as optical flow, and we refer
+ to the optical flow of an individual pixel as its flow vector.
+ 
+\end_layout
+
+\end_inset
+
+Optical flow estimation is the task of determining the apparent motion of
+ surfaces in a visual scene from a sequence of images.
+ In their seminal work 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "horn1981determining"
+
+\end_inset
+
+, Horn and Schunck developed one of the first algorithms to estimate optical
+ flow.
+ This algorithm was based on two key assumptions.
+ The first assumption is intensity constancy: in a sequence of images, changes
+ in the intensity 
+\begin_inset Formula $I\left(x,y,t\right)$
+\end_inset
+
+ is due to the movement of the surfaces in the scene and not changes in
+ illumination.
+ Mathematically, this can be expressed as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This assumption leads to the constraint that 
+\begin_inset Formula $\frac{dI}{dt}=0$
+\end_inset
+
+, which can be expanded as
+\begin_inset Formula 
+\begin{equation}
+\frac{dI}{dt}=I_{x}\frac{dx}{dt}+I_{y}\frac{dy}{dt}+I_{t}=0\label{eq:intensity-constancy}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $I_{x}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{y}$
+\end_inset
+
+, 
+\begin_inset Formula $I_{t}$
+\end_inset
+
+ represent the partial derivatives of the image intensity with respect to
+ 
+\begin_inset Formula $x$
+\end_inset
+
+, 
+\begin_inset Formula $y$
+\end_inset
+
+, and 
+\begin_inset Formula $t$
+\end_inset
+
+, respectively.
+ Discretized spatially into pixels and temporally by considering two subsequent
+ images 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ gives
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{1}\left(i,j\right)=I_{2}\left(i+u_{i,j},j+v_{i,j}\right)\label{eq:data-term}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$I_1(i,j)$
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$I_2(i,j)$
+\end_layout
+
+\end_inset
+
+ are consecutive frames, and 
+\begin_inset Formula $u_{i,j}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i,j}$
+\end_inset
+
+ are the spatially-varying components of the optical flow vector.
+\end_layout
+
+\begin_layout Standard
+Horn and Schunk recognized that the problem of finding the optical flow
+ using only 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+ is ill-posed.
+ In regions where the intensity is constant (e.g.
+ flat region, along edges), there are several candidates for 
+\begin_inset Formula $u_{i,j}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i,j}$
+\end_inset
+
+ that satisfy 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+.
+ Furthermore, Bertero et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bertero1988ill"
+
+\end_inset
+
+ show that only the optical flow component normal to edges can be determined
+ directly from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+.
+ This is known as the aperture problem.
+ 
+\end_layout
+
+\begin_layout Standard
+To address this, Horn and Schunk made a second assumption: the optical flow
+ varies smoothly across the frame.
+ This leads to an optimization problem with an objective function of the
+ form
+\begin_inset Formula 
+\begin{align}
+E\left(\mathbf{u},\mathbf{v}\right) & =\sum_{i,j}\{\rho\left(I_{1}\left(i,j\right)-I_{2}\left(i+u_{i,j},j+v\left(i,j\right)\right)\right)\nonumber \\
+ & +\lambda[\rho\left(u_{i,j}-u_{i+1,j}\right)+\rho\left(u_{i,j}-u_{i,j+1}\right)\nonumber \\
+ & +\rho\left(v_{i,j}-v_{i+1,j}\right)+\rho\left(v_{i,j}-v_{i,j+1}\right)]\}\label{eq:objective}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\rho\left(x\right)=x^{2}$
+\end_inset
+
+ is a quadratic penalty function and 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a regularization parameter.
+ The first term comes from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+ and is called the data term, while the second regularizing term is called
+ the smoothness term.
+ Note that even though the penalty function is convex, minimizing 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ is a nonlinear problem since the image intensity 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ is a nonlinear function of the variables 
+\begin_inset Formula $\mathbf{u},\mathbf{v}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Combining both assumptions, for each pixel, the flow vector is the solution
+ to the following optimization problem: 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray}
+(u_{i,j},v_{i,j}) & = & \arg\min_{u,v}\lambda(I_{x}u+I_{y}v+I_{t})^{2}+\nonumber \\
+ &  & \frac{1}{4}((u_{i+1,j}-u)^{2}+(u_{i,j+1}-u)^{2}+(v_{i+1,j}-v)^{2}+(v_{i,j+1}-v)^{2})\label{eq:of_formulation-1}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Here, 
+\begin_inset Formula $u_{i,j}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i,j}$
+\end_inset
+
+ represent the 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ components of the flow vector for the 
+\begin_inset Formula $(i,j)$
+\end_inset
+
+ pixel, respectively;; and 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ weighs the regularizing term 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+it's not the term itself, just a factor
+\end_layout
+
+\end_inset
+
+.
+ We set the derivative of 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:of_formulation-1"
+
+\end_inset
+
+ with respect to 
+\begin_inset Formula $u_{i,j}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i,j}$
+\end_inset
+
+ to 0 and obtain the following iterative solution:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray}
+u_{i,j}^{n+1} & = & \bar{u}_{i,j}^{n}-\frac{I_{x}\bar{u}_{i,j}^{n}+I_{y}\bar{v}_{i,j}^{n}+I_{t}}{1+\lambda(I_{x}^{2}+I_{y}^{2})}I_{x}\label{eq:u_update-1}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray}
+v_{i,j}^{n+1} & = & \bar{v}_{i,j}^{n}-\frac{I_{x}\bar{u}_{i,j}^{n}+I_{y}\bar{v}_{i,j}^{n}+I_{t}}{1+\lambda(I_{x}^{2}+I_{y}^{2})}I_{y}\label{eq:v_update-1}
+\end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: remove one of these
+\end_layout
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{u}_{i,j}=\frac{1}{2}(u_{i+1,j}+u_{i,j+1})$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{v}_{i,j}=\frac{1}{2}(v_{i+1,j}+v_{i,j+1})$
+\end_inset
+
+.
+ For a detailed treatment of this derivation, please see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "machinvevision"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the development of the Horn and Schunk algorithm (referred to later
+ as HS), the field of optical flow estimation has not stood still.
+ New algorithms are developed regularly, and are typically evaluated against
+ a standard set of image sequences, such as the Middlebury dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "baker2011database"
+
+\end_inset
+
+.
+ The Middlebury dataset is composed of 24 image sequences that represent
+ four distinct classes: 1) non-rigid motion, 2) synthetic objects, 3) high
+ frame-rate video, and 4) stereo scene images.
+ Algorithms are typically scored in terms of two different criteria: angular
+ error (AE, 
+\begin_inset Formula $\epsilon_{\alpha}$
+\end_inset
+
+), and endpoint error (EE, 
+\begin_inset Formula $\epsilon_{\Delta}$
+\end_inset
+
+), averaged over the image.
+ Denoting the ground truth pixel displacement at a point as 
+\begin_inset Formula $\left(\begin{smallmatrix}u & v\end{smallmatrix}\right)^{T}$
+\end_inset
+
+ and the estimate computed by an optical flow algorithm as 
+\begin_inset Formula $\left(\begin{smallmatrix}\hat{u} & \hat{v}\end{smallmatrix}\right)^{T}$
+\end_inset
+
+, these criteria are defined as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\epsilon_{\alpha} & = & \arccos\left(\frac{1+\hat{u}u+\hat{v}v}{\sqrt{1+\hat{u}^{2}+\hat{v}^{2}}\sqrt{1+u^{2}+v^{2}}}\right)\label{eq:AE_metric}\\
+\epsilon_{\Delta} & = & \sqrt{\left(\hat{u}-u\right)^{2}+\left(\hat{v}-v\right)^{2}}\label{eq:EE_metric}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

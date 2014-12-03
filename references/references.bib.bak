@@ -1,0 +1,104 @@
+%% This BibTeX bibliography file was created using BibDesk.
+%% http://bibdesk.sourceforge.net/
+
+
+%% Created for James Noraky at 2014-10-28 19:46:07 -0400 
+
+
+%% Saved with string encoding Unicode (UTF-8) 
+
+
+
+@book{machinvevision,
+	Author = {Horn, Berthold K},
+	Date-Added = {2014-10-28 23:44:57 +0000},
+	Date-Modified = {2014-10-28 23:45:53 +0000},
+	Publisher = {The MIT Press},
+	Title = {Robot Vision},
+	Year = {1986}}
+
+@article{freeman1991design,
+	Author = {Freeman, William T. and Adelson, Edward H},
+	Journal = {IEEE Transactions on Pattern analysis and machine intelligence},
+	Number = {9},
+	Pages = {891--906},
+	Publisher = {IEEE Computer Society},
+	Title = {The design and use of steerable filters},
+	Volume = {13},
+	Year = {1991}}
+
+@book{szeliski2010computer,
+	Author = {Szeliski, Richard},
+	Publisher = {Springer},
+	Title = {Computer vision: algorithms and applications},
+	Year = {2010}}
+
+@electronic{SimoncelliPyr,
+	Author = {Simoncelli, Eero},
+	Title = {matlabpyrtools},
+	Url = {http://www.cns.nyu.edu/~eero/software.php},
+	Bdsk-Url-1 = {http://www.cns.nyu.edu/~eero/software.php}}
+
+@article{baker2011database,
+	Author = {Baker, Simon and Scharstein, Daniel and Lewis, JP and Roth, Stefan and Black, Michael J and Szeliski, Richard},
+	Journal = {International Journal of Computer Vision},
+	Number = {1},
+	Pages = {1--31},
+	Publisher = {Springer},
+	Title = {A database and evaluation methodology for optical flow},
+	Volume = {92},
+	Year = {2011}}
+
+@inproceedings{otte1994optical,
+	Author = {Otte, Michael and Nagel, H-H},
+	Booktitle = {Computer Vision---ECCV'94},
+	Pages = {49--60},
+	Publisher = {Springer},
+	Title = {Optical flow estimation: advances and comparisons},
+	Year = {1994}}
+
+@article{barron1994performance,
+	Author = {Barron, John L and Fleet, David J and Beauchemin, Steven S},
+	Journal = {International journal of computer vision},
+	Number = {1},
+	Pages = {43--77},
+	Publisher = {Springer},
+	Title = {Performance of optical flow techniques},
+	Volume = {12},
+	Year = {1994}}
+
+@inproceedings{horn1981determining,
+	Author = {Horn, Berthold K and Schunck, Brian G},
+	Booktitle = {1981 Technical Symposium East},
+	Organization = {International Society for Optics and Photonics},
+	Pages = {319--331},
+	Title = {Determining optical flow},
+	Year = {1981}}
+
+@article{blake1983least,
+	Author = {Blake, Andrew},
+	Journal = {Pattern Recognition Letters},
+	Number = {5},
+	Pages = {393--399},
+	Publisher = {Elsevier},
+	Title = {The least-disturbance principle and weak constraints},
+	Volume = {1},
+	Year = {1983}}
+
+@book{blake1987visual,
+	Author = {Blake, Andrew and Zisserman, Andrew},
+	Publisher = {MIT press Cambridge},
+	Title = {Visual reconstruction},
+	Volume = {2},
+	Year = {1987}}
+
+@article{sun2014quantitative,
+  title={A quantitative analysis of current practices in optical flow estimation and the principles behind them},
+  author={Sun, Deqing and Roth, Stefan and Black, Michael J},
+  journal={International Journal of Computer Vision},
+  volume={106},
+  number={2},
+  pages={115--137},
+  year={2014},
+  publisher={Springer}
+}

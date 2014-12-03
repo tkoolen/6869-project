@@ -1,0 +1,167 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Our Proposal
+\end_layout
+
+\begin_layout Standard
+For this project, we propose to use Classic++ as a baseline, and attempt
+ to improve the median filter and the coarse-to-fine optimization presented
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+ as follows.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Paragraph
+Weighted Median Filter
+\end_layout
+
+\begin_layout Standard
+In the intermediate stages of the coarse-to-fine optimization, a median
+ filter is applied.
+ In highly structured regions (e.g.
+ edges), median filtering can oversmooth and remove features.
+ We will explore weighted median filtering in the intermediate stages by
+ varying the weight allocations for each pixel in the median block.
+ Once we gain an intuition on the effects of the different weights, we will
+ attempt to understand how to automatically assign weights to the median
+ filter based on image features and statistics.
+ We will compare the results here to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+ to see how our approach compares to their optimization strategy.
+\end_layout
+
+\begin_layout Paragraph
+Speeding up Coarse-to-Fine Optimization
+\end_layout
+
+\begin_layout Standard
+In the current pipeline used to determine optical flow, we compute the optical
+ flow for each intermediate stage.
+ Due to the overhead of computing flow vectors for each intermediate stage,
+ we will explore an alternative approach of using block matching in the
+ coarser optimization stages.
+ In block matching, we subdivide the frame into 
+\begin_inset Formula $N\times N$
+\end_inset
+
+ blocks and find their corresponding motion vectors.
+ There is a rich literature of block matching algorithms that are optimized
+ for speed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lin1997fast,jain1981displacement"
+
+\end_inset
+
+.
+ We will compare the accuracy of using block matching in intermediate steps
+ and optical flow in the final estimation to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+ to determine a tradeoff between computational complexity and accuracy.
+\end_layout
+
+\begin_layout Paragraph
+Evaluation
+\end_layout
+
+\begin_layout Standard
+We will use both simple sequences (e.g.
+ red square moving against a white background) and the Middlebury dataset
+ to quantify our results using angular error and end point error.
+\end_layout
+
+\end_body
+\end_document

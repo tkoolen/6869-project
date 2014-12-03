@@ -1,0 +1,7 @@
+* weighted median filtering code + play around with it: Twan: Wednesday
+* weighted median filtering graphs, proper results: Twan: Friday
+* block matching code, preliminary results: Friday
+* set up github: Twan
+* set up lyx skeleton: Twan, today
+* transform survey into intro and related work: Twan
+* discussion

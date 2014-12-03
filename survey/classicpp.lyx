@@ -1,0 +1,247 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathAlphabet{\mathsfit}{\encodingdefault}{\sfdefault}{m}{sl}
+\DeclareMathAlphabet{\mathsfb}{\encodingdefault}{\sfdefault}{bx}{n}
+\DeclareMathAlphabet{\mathbbb}{U}{bbold}{m}{n}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman lmodern
+\font_sans cmss
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Current Approaches
+\end_layout
+
+\begin_layout Standard
+Modern approaches have improved the accuracy of optical flow algorithms,
+ as confirmed by performance on the Middlebury dataset.
+ These updated approaches often varied the penalty functions, optimization
+ schemes, and other aspects in solving 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ all at once.
+ Consequently, this has made it difficult to discern which changes significantly
+ impacted accuracy.
+ Sun et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+ quantitatively analyzed which commonly used techniques truly improved the
+ algorithm's accuracy by varying only one part of the algorithm at a time
+ and evaluating performance on the Middlebury dataset.
+ They independently analyzed the effects of 1) the objective function, and
+ 2) the optimization method and implementation practices.
+\end_layout
+
+\begin_layout Standard
+Sun et al.
+ note that the objective function is largely unchanged from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+, used in HS.
+ Most modern approaches still combine a data term with a smoothing term.
+ However, the quadratic penalty function 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+ used in HS is not robust to outliers..
+ An alternative penalty function is the Charbonnier penalty, or 
+\begin_inset Formula $\rho\left(x\right)=\sqrt{x^{2}+\epsilon^{2}}$
+\end_inset
+
+, which is a convex and differentiable variant of the absolute value function
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bruhn2005lucas"
+
+\end_inset
+
+.
+ Indeed, Sun et al.
+ find that using a Charbonnier penalty function (with 
+\begin_inset Formula $\epsilon=0.001$
+\end_inset
+
+) outperforms a quadratic one.
+ Furthermore, Sun et al.
+ also find that using a slightly non-convex generalized Charbonnier penalty,
+ 
+\begin_inset Formula $\rho\left(x\right)=\left(x^{2}+\epsilon^{2}\right)^{a}$
+\end_inset
+
+ (with 
+\begin_inset Formula $a=0.45$
+\end_inset
+
+), works even better than the regular Charbonnier penalty.
+ In these explorations, the regularization parameter 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ was assigned a fixed value of 
+\begin_inset Formula $0.06$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+On the side of optimization methods and implementation practices, modern
+ techniques differ more significantly from HS.
+ Using modern techniques, even the performance of the original HS objective
+ function is competitive with modern formulations.
+ To avoid converging to a poor local minimum, these modern optimization
+ approaches iteratively refine the optimization problem in the following
+ manner: 
+\end_layout
+
+\begin_layout Enumerate
+When the penalty functions are non-convex, Sun et al.
+ suggest using a graduated non-convexity scheme (GNC, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blake1987visual,black1996robust"
+
+\end_inset
+
+), which slowly morphs the penalty function from a quadratic (convex) version
+ to its final desired non-convex version over several iterations.
+\end_layout
+
+\begin_layout Enumerate
+At each GNC iteration, it is also common to use a hierarchical, coarse-to-fine
+ spatial refinement using a Gaussian pyramid 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bergen1992hierarchical"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The main advantage of hierarchical refinement is that it enables both large
+ and small displacements to be estimated.
+ This is due to the fact that in the low-resolution, downsampled version
+ of the original image, large displacements are represented by small pixel
+ displacments, which existing optimizations can successfully identify.
+ Here, the optical flow field is first estimated coarsely using the first
+ pyramid level, and then progressively refined by warping second image toward
+ the first image at the next pyramid level.
+ This process is continued for the entire pyramid.
+\end_layout
+
+\begin_layout Standard
+The implementation details of the hierarchical refinement are of great importanc
+e.
+ Sun et al.
+ find that using bicubic spline-based interpolation to warp at each pyramid
+ level is more accurate than using other common forms of interpolation.
+ Accuracy is also increased significantly by applying a median filter (window
+ size 
+\begin_inset Formula $5\times5$
+\end_inset
+
+) to the updated flow field computed at each pyramid level after warping
+ to remove outliers.
+\end_layout
+
+\begin_layout Standard
+Sun et al.
+ combine the features that improve the accuracy of the optical flow estimation
+ the most with respect to HS (a generalized Charbonnier penalty function,
+ optimization using a GNC scheme, and hierarchical coarse-to-fine refinement
+ with warping using bicubic spline-based interpolation, and median filtering).
+ The resulting algorithm is termed Classic++.
+ This algorithm, although comparatively simple, performs competitively on
+ the Middlebury dataset.
+\end_layout
+
+\end_body
+\end_document

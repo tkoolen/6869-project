@@ -1,0 +1,19 @@
+Title: block matching and weighted median filtering in optical flow estimation
+
+(Abstract)
+
+Introduction
+
+Related work
+
+Block matching
+
+Weighted median filtering
+
+Results
+1) block matching
+2) weighted median filtering
+3) combined
+Discussion
+
+(Conclusion)
