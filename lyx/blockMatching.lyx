@@ -84,5 +84,114 @@ theorems-ams
 Block matching
 \end_layout
 
+\begin_layout Standard
+Block matching algorithms (BMA) are used to find matching blocks of pixels
+ between consecutive frames.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:BMA-is-used"
+
+\end_inset
+
+ illustrates the goal of BMA.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Figures/bma_example.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+BMA is used to find matching blocks of pixels between frames 1 and 2.
+ Here, the algorithm is used to find the position of the cat's right ear.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:BMA-is-used"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Similar to optical flow estimation, the displacement between the blocks
+ represent the underlying motion in the video.
+ For consecutive frames 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+, BMA is formulated as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+(m_{u},m_{v}) & = & \arg\min_{u,v}\sum_{(x,y)\in B}\rho(I_{2}(x+u,y+v)-I_{1}(x,y))\label{eq:BMA_eq}
+\end{eqnarray}
+
+\end_inset
+
+where 
+\begin_inset Formula $(m_{u},m_{v})$
+\end_inset
+
+ is the displacement between the blocks, 
+\begin_inset Formula $B$
+\end_inset
+
+ is the set of points of the block of interest in 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\rho(\cdot)$
+\end_inset
+
+ is a penalty function.
+ 
+\end_layout
+
+\begin_layout Standard
+BMAs are used in motion estimation in video compression algorithms to remove
+ temporal redundancies across frames.
+ As such, BMA can be implemented quic
+\end_layout
+
 \end_body
 \end_document
