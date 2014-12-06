@@ -85,69 +85,10 @@ Block matching
 \end_layout
 
 \begin_layout Standard
-Block matching algorithms (BMA) are used to find matching blocks of pixels
- between consecutive frames.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:BMA-is-used"
-
-\end_inset
-
- illustrates the goal of BMA.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename Figures/bma_example.pdf
-	scale 50
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-BMA is used to find matching blocks of pixels between frames 1 and 2.
- Here, the algorithm is used to find the position of the cat's right ear.
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:BMA-is-used"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Similar to optical flow estimation, the displacement between the blocks
- represent the underlying motion in the video.
+Block matching algorithms are used to find matching blocks of pixels across
+ consecutive frames.
+ Similar to optical flow estimation, displacement between the matching blocks
+ correspond to motion in the video.
  For consecutive frames 
 \begin_inset Formula $I_{1}$
 \end_inset
@@ -156,41 +97,54 @@ Similar to optical flow estimation, the displacement between the blocks
 \begin_inset Formula $I_{2}$
 \end_inset
 
-, BMA is formulated as follows:
+, the displacment of block, 
+\begin_inset Formula $B$
+\end_inset
+
+, is determined as follows 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray}
-(m_{u},m_{v}) & = & \arg\min_{u,v}\sum_{(x,y)\in B}\rho(I_{2}(x+u,y+v)-I_{1}(x,y))\label{eq:BMA_eq}
+(\hat{u},\hat{v}) & = & \arg\max_{u,v}\sum_{(x,y)\in B}f(I_{2}(x+u,y+v),I(x,y))\label{eq:BMA_eq}
 \end{eqnarray}
 
 \end_inset
 
 where 
-\begin_inset Formula $(m_{u},m_{v})$
+\begin_inset Formula $(\hat{u},\hat{v})$
 \end_inset
 
- is the displacement between the blocks, 
-\begin_inset Formula $B$
+ is the estimated motion and 
+\begin_inset Formula $f(\cdot)$
 \end_inset
 
- is the set of points of the block of interest in 
-\begin_inset Formula $I_{1}$
-\end_inset
-
-, and 
-\begin_inset Formula $\rho(\cdot)$
-\end_inset
-
- is a penalty function.
+ is a similarity measure.
  
 \end_layout
 
 \begin_layout Standard
-BMAs are used in motion estimation in video compression algorithms to remove
- temporal redundancies across frames.
- As such, BMA can be implemented quic
+In this project, we implement a modified version of (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BMA_eq"
+
+\end_inset
+
+).
+ Instead of searching all of 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ to find a matching block, we restrict possible matches to be within a fixed
+ search window.
+ In doing so, we constrain the maximum velocity across frames.
+ Additionally, we also estimate motion vectors for only non-overlapping
+ blocks of pixels across an image and we apply a median filter to smoothen
+ the motion vector field.
+ For our implementation, we also use normalized correlation for the similarity
+ measure.
 \end_layout
 
 \end_body

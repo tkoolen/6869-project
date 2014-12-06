@@ -1,5 +1,4 @@
 close all; clear all; clc;
-clear classes
 
 addpath('..');
 addpath('../utils');
@@ -12,7 +11,7 @@ GT = readFlowFile(['other-gt-flow/' imageset '/flow10.flo']);
 
 
 tic
-uvo = estimate_flow_using_BMA(img1, img2); 
+uvo = estimate_flow_using_BMA(img1, img2, 'classic++'); 
 toc
 
 tic
