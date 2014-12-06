@@ -81,7 +81,7 @@ theorems-ams
 \begin_body
 
 \begin_layout Title
-Block matching and weighted median filtering in optical flow estimation
+Block matching with weighted median filtering for optical flow estimation
 \end_layout
 
 \begin_layout Author
