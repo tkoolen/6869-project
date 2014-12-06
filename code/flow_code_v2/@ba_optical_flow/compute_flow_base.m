@@ -141,8 +141,15 @@ function uv = compute_flow_base(this, uv)
         uv  = uv+duv;        
         if ~isempty(this.median_filter_size)
             % Perform median filter
-            uv(:,:,1) = medfilt2(uv(:,:,1), this.median_filter_size, 'symmetric');
-            uv(:,:,2) = medfilt2(uv(:,:,2), this.median_filter_size, 'symmetric');
+%             uv(:,:,1) = medfilt2(uv(:,:,1), this.median_filter_size, 'symmetric');
+%             uv(:,:,2) = medfilt2(uv(:,:,2), this.median_filter_size, 'symmetric');
+
+            occlusions = detect_occlusion(uv, this.images);
+%             occlusions = ones(size(uv, 1), size(uv, 2));
+            half_window_size = 7;
+            sigma_i = 7;
+            full_version = 0;
+            uv = denoise_color_weighted_medfilt2(uv, this.color_images, occlusions, half_window_size, this.median_filter_size, sigma_i, full_version);
         end;
         duv = uv - uv0;
         

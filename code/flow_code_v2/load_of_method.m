@@ -178,6 +178,7 @@ switch method
         ope.lambda = 3;
         ope.lambda_q =3;
         %ope.display = true;
+        ope.color_images = ones(1,1,3); % TK added
         
     otherwise
         error('unknown optical flow estimation method!');
