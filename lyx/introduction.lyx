@@ -84,5 +84,139 @@ theorems-ams
 Introduction
 \end_layout
 
+\begin_layout Standard
+Optical flow estimation is the task of determining the apparent motion of
+ surfaces in a visual scene from a sequence of images.
+ An important application of algorithms for optical flow estimation lies
+ in video compression.
+ If the motion of surfaces between the frames of a video can be determined
+ accurately, then this information can be used to represent the video sequence
+ more concisely.
+\end_layout
+
+\begin_layout Standard
+Most current video compression algorithms, including TODO, employ a block
+ matching algorithm (BMA) to estimate the optical flow field.
+ The goal of a block matching algorithm is to estimate the displacement
+ of a (usually rectangular) region of pixels between two subsequent images.
+ Blocks that match between subsequent images are typically found by comparing
+ the sum of squared differences in intensity between blocks in the two images.
+ Median filtering can be used to smoothen the output.
+ The main reason that BMAs are popular in video compression is their high
+ efficiency compared to other methods.
+ However, the resulting optical flow fields are not very accurate.
+ TODO:cite if possible.
+\end_layout
+
+\begin_layout Standard
+On the other side of the optical flow estimation spectrum, the most accurate
+ algorithms typically employ a differential or variational optimization
+ method derived from the classical Lucas-Kanade TODO:cite and Horn-Schunk
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "horn1981determining"
+
+\end_inset
+
+ algorithms.
+ To allow these algorithms to estimate large as well as small motions, modern
+ approaches employ coarse-to-fine optimization.
+ In coarse-to-fine optimization, the differential optimization method is
+ first run on the coarsest level of a Gaussian image pyramid, resulting
+ in a rough, intermediate flow field.
+ This intermediate flow field is then supersampled and used to initialize
+ differential optimization at the next finer pyramid level, continuing down
+ the pyramid.
+ The coarse-to-fine optimization technique tends to make these methods fairly
+ slow.
+\end_layout
+
+\begin_layout Standard
+A key recent improvement in coarse-to-fine optimization methods is the use
+ of a weighted median filter (instead of a standard median filter) to smoothen
+ the intermediate flow fields at each pyramid level TODO:cite.
+ In weighted median filtering, a weight is assigned to each pixel in some
+ neighborhood of a pixel under consideration, and this pixel is replaced
+ by the 50% weighted percentile among the neighborhood.
+ Current approaches determine the weights using heuristics based on e.g.
+ similarity in pixel intensity and distance to the neighboring pixel.
+\end_layout
+
+\begin_layout Standard
+In this paper, we borrow the weighted median filtering technique from coarse-to-
+fine optimization and apply it to the output of a BMA, replacing the standard
+ median filtering step.
+ We compare the computation time and accuracy of two versions of the proposed
+ algorithm, a standard block matching algorithm, and a representative coarse-to-
+fine optimization technique on the standard Middlebury dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "baker2011database"
+
+\end_inset
+
+.
+ We find that the proposed algorithm performs slightly better than standard
+ block matching in terms of accuracy, but is somewhat slower, though still
+ inside an acceptable range for video compression.
+\end_layout
+
+\begin_layout Standard
+The remainder of this paper is structured as follows.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Related-work"
+
+\end_inset
+
+ discusses related work and introduces notation used throughout the paper.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Proposed-algorithm"
+
+\end_inset
+
+ describes the proposed algorithm.
+ The evaluation method is presented in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Evaluation-method"
+
+\end_inset
+
+, followed by results in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results"
+
+\end_inset
+
+.
+ We discuss the results and conclude the paper in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Discussion"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: other angle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

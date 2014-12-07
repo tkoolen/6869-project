@@ -80,71 +80,15 @@ theorems-ams
 
 \begin_body
 
-\begin_layout Subsection
-Block matching
-\end_layout
-
-\begin_layout Standard
-Block matching algorithms are used to find matching blocks of pixels across
- consecutive frames.
- Similar to optical flow estimation, displacement between the matching blocks
- correspond to motion in the video.
- For consecutive frames 
-\begin_inset Formula $I_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $I_{2}$
-\end_inset
-
-, the displacment of block, 
-\begin_inset Formula $B$
-\end_inset
-
-, is determined as follows 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{eqnarray}
-(\hat{u},\hat{v}) & = & \arg\max_{u,v}\sum_{(x,y)\in B}f(I_{2}(x+u,y+v),I(x,y))\label{eq:BMA_eq}
-\end{eqnarray}
+\begin_layout Section
+Evaluation method
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Evaluation-method"
 
 \end_inset
 
-where 
-\begin_inset Formula $(\hat{u},\hat{v})$
-\end_inset
 
- is the estimated motion and 
-\begin_inset Formula $f(\cdot)$
-\end_inset
-
- is a similarity measure.
- 
-\end_layout
-
-\begin_layout Standard
-In this project, we implement a modified version of (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:BMA_eq"
-
-\end_inset
-
-).
- Instead of searching all of 
-\begin_inset Formula $I_{2}$
-\end_inset
-
- to find a matching block, we restrict possible matches to be within a fixed
- search window.
- In doing so, we constrain the maximum velocity across frames.
- Additionally, we also estimate motion vectors for only non-overlapping
- blocks of pixels across an image and we apply a median filter to smoothen
- the motion vector field.
- For our implementation, we also use normalized correlation for the similarity
- measure.
 \end_layout
 
 \end_body

@@ -87,7 +87,8 @@ Current video compression techniques rely on estimation of the optical flow
  to estimate optical flow.
  Block matching algorithms are not very accurate however.
  In contrast, coarse-to-fine (pyramid-based) estimation methods based on
- the classical Horn and Schunk algorithm high accuracy, but tend to be slow.
+ the classical Horn and Schunk algorithm achieve high accuracy, but tend
+ to be slow.
  A fairly standard practice in such techniques is to use median filtering
  to smoothen the intermediate flow fields found at each pyramid level.
  More recent approaches replace the median filter with a weighted median

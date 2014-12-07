@@ -80,7 +80,7 @@ theorems-ams
 
 \begin_body
 
-\begin_layout Section
+\begin_layout Subsection
 Weighted median filtering
 \end_layout
 
@@ -98,7 +98,15 @@ key "wedel2009improved"
  the robustness to sampling artifacts in the image data.
  In a thorough comparison study, Sun et al.
  found that this median filtering step is in fact one of the factors that
- have most improved accuracy in modern optical flow estimation algorithms.
+ have most improved accuracy in modern optical flow estimation algorithms
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
