@@ -14,7 +14,7 @@ function uvo = estimate_flow_using_BMA(im1, im2, method, outFn, params)
 
 % if first two inputs are filenames
 if ischar(im1)
-    im1 = imread(im1);    
+    im1 = imread(im1);  
 end;
 if ischar(im2)
     im2 = imread(im2);
@@ -31,17 +31,17 @@ if (~isdeployed)
     addpath(genpath('../utils'));
 end
 
+% Compute flow field
+[mvx, mvy] = bma(im1, im2, 4, 20, 30, true);
+flow(:,:,1)=mvx;flow(:,:,2)=mvy;
+im2=warpFL(im2,mvx,mvy);
+
 % Load default parameters
 ope = load_of_method(method);
 
 if exist('params', 'var')
     ope = parse_input_parameter(ope, params);    
 end;
-
-% Compute flow field
-[mvx mvy] = bma(im1, im2, 4, 20, 30);
-flow(:,:,1)=mvx;flow(:,:,2)=mvy;
-im2=warpFL(im2,mvx,mvy);
 
 % Uncomment this line if Error using ==> \  Out of memory. Type HELP MEMORY for your option.
 %ope.solver    = 'pcg';  

@@ -1,4 +1,4 @@
-function uvo = denoise_color_weighted_medfilt2(uv, im, occ, bfhsz, mfsz, sigma_i, fullVersion)
+function uvo = denoise_weighted_medfilt2(uv, im, occ, bfhsz, mfsz, sigma_i, fullVersion)
 
 % edge region: weighted median filtering, the weights are determined by
 %  spatial distance, intensity distance, occlusion state
@@ -70,8 +70,8 @@ end;
 % % % WMF first then MF
 % % uvo = uv;
 
-e1 = edge(uv(:,:,1), 'sobel');
-e2 = edge(uv(:,:,2), 'sobel');
+e1 = edge(uvo(:,:,1), 'sobel'); % tk changed from uv to uvo here
+e2 = edge(uvo(:,:,2), 'sobel');
 e  = e1|e2;
 mask = imdilate(e, ones(dilate_sz));
 
@@ -130,7 +130,7 @@ for ib = 1:nB;
 
     % Occlusion weight    
     weights = weights.*pad_occ(pad_indx);
-    
+        
     % Normalize
     weights = weights./repmat(sum(weights, 1), [(bfhsz*2+1)^2, 1]);
     

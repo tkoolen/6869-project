@@ -1,4 +1,4 @@
-function [mvx mvy] = bma(im1, im2, block_size, search_size, medfilt_size)
+function [mvx mvy] = bma(im1, im2, block_size, search_size, medfilt_size, use_weighted_median_filtering)
 noise_mask = 0.0000001*rand(size(im1));
 im1 = im1;
 im2 = im2;
@@ -55,12 +55,29 @@ mvy = mvy(search_size/2+1:end-search_size/2, search_size/2+1:end-search_size/2);
 
 %g_kern = fspecial('gaussian',[block_size/2 block_size/2],block_size);
 %tic
-mvx = medfilt2(mvx, [medfilt_size medfilt_size], 'symmetric');
-mvy = medfilt2(mvy, [medfilt_size medfilt_size], 'symmetric');
+
 mvx_new(search_size/2+1:end-search_size/2, search_size/2+1:end-search_size/2) = mvx;
 mvx = mvx_new;
 mvy_new(search_size/2+1:end-search_size/2, search_size/2+1:end-search_size/2) = mvy;
 mvy = mvy_new;
+
+if use_weighted_median_filtering
+    uv = cat(3, mvx, mvy);
+    %   occlusions = detect_occlusion(uv, this.images);
+    
+    occlusions = ones(size(uv, 1), size(uv, 2));
+    half_window_size = 15;
+    sigma_i = 7;
+    full_version = false; % whether to do filtering on whole image or just near edges in flow
+    % TODO: use color images?
+    uv = denoise_weighted_medfilt2(uv, im1, occlusions, half_window_size, [medfilt_size medfilt_size], sigma_i, full_version);
+    mvx = uv(:, :, 1);
+    mvy = uv(:, :, 2);
+else
+    mvx = medfilt2(mvx, [medfilt_size medfilt_size], 'symmetric');
+    mvy = medfilt2(mvy, [medfilt_size medfilt_size], 'symmetric');
+end
+
 
 %toc
 %mvx = imfill(mvx, 'holes');
