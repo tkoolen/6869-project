@@ -81,7 +81,25 @@ theorems-ams
 \begin_body
 
 \begin_layout Abstract
-TODO
+Current video compression techniques rely on estimation of the optical flow
+ between the frames of a video to find temporal redundancy in a video sequence.
+ Typically, such compression techniques employ a block matching algorithms
+ to estimate optical flow.
+ Block matching algorithms are not very accurate however.
+ In contrast, coarse-to-fine (pyramid-based) estimation methods based on
+ the classical Horn and Schunk algorithm high accuracy, but tend to be slow.
+ A fairly standard practice in such techniques is to use median filtering
+ to smoothen the intermediate flow fields found at each pyramid level.
+ More recent approaches replace the median filter with a weighted median
+ filter, placing more weight on neighboring pixels which are likely to belong
+ to the same object.
+ In this paper, we explore using weighted median filtering in a block matching
+ scheme with the goal of achieving a middle ground, with decent accuracy
+ but low computation time.
+ Results on the Middlebury dataset show that using weighted median filtering
+ instead of unweighted median filtering in a block matching algorithm does
+ indeed improve the accuracy somewhat, while incurring only a small penalty
+ in terms of computation time.
 \end_layout
 
 \end_body
