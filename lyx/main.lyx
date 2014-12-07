@@ -10,6 +10,7 @@
 \def\cvprPaperID{****} % *** Enter the CVPR Paper ID here
 \def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
 \end_preamble
+\options 10pt,twocolumn,letterpaper
 \use_default_options true
 \begin_modules
 theorems-ams
