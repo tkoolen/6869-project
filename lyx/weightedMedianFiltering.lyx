@@ -84,5 +84,175 @@ theorems-ams
 Weighted median filtering
 \end_layout
 
+\begin_layout Standard
+Using a median filter to smoothen estimated flow fields was first proposed
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wedel2009improved"
+
+\end_inset
+
+.
+ They observed that this (unweighted) median filtering technique increases
+ the robustness to sampling artifacts in the image data.
+ In a thorough comparison study, Sun et al.
+ found that this median filtering step is in fact one of the factors that
+ have most improved accuracy in modern optical flow estimation algorithms.
+\end_layout
+
+\begin_layout Standard
+A median filter applied to a component 
+\begin_inset Formula $u\in\mathbb{R}^{n\times m}$
+\end_inset
+
+ of the flow field 
+\begin_inset Formula $\left(u,v\right)$
+\end_inset
+
+ computes, for each pixel location 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+, the median value among a set of neighboring pixels 
+\begin_inset Formula $\mathcal{N}\left(i,j\right)$
+\end_inset
+
+ around pixel 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+.
+ The output 
+\begin_inset Formula $\hat{u}_{i,j}$
+\end_inset
+
+ at pixel location 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+ can hence be written as 
+\begin_inset Formula 
+\[
+\hat{u}_{i,j}=\arg\min_{\hat{u}\in\mathbb{R}}\sum_{\left(k,l\right)\in\mathcal{N}\left(i,j\right)\cup\left\{ \left(i,j\right)\right\} }\left|\hat{u}-u_{k,l}\right|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sun et al.
+ noted that while median filtering improves the accuracy of typical optical
+ flow algorithms, it tends to oversmooth areas near boundaries in the flow
+ field, e.g.
+ near the edges of objects moving at different velocities.
+ To further improve performance, they propose a weighted median filter,
+ that places more weight on neighboring pixels that are more likely to belong
+ to the same surface.
+ The output of such a filter can hence be written as
+\begin_inset Formula 
+\[
+\hat{u}_{i,j}=\arg\min_{\hat{u}\in\mathbb{R}}\sum_{\left(k,l\right)\in\mathcal{N}\left(i,j\right)\cup\left\{ \left(i,j\right)\right\} }w_{i,j}^{k,l}\left|\hat{u}-x_{k,l}\right|
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $w_{i,j}^{k,l}$
+\end_inset
+
+ is a scalar weight that is to be determined using cues (heuristics) operating
+ on the input flow fields and images.
+ Three different cues were proposed, namely:
+\end_layout
+
+\begin_layout Enumerate
+similarity in intensity (for grayscale images) or color of the input image
+ 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+spatial distance
+\end_layout
+
+\begin_layout Enumerate
+an occlusion metric proposed by Sand and Teller 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sand2008particle"
+
+\end_inset
+
+, determined from the input flow field
+\end_layout
+
+\begin_layout Standard
+In tests, we observed that the occlusion metric did not work very well on
+ the rough block matching input flow field.
+ For this reason, we only use intensity similarity and spatial distance
+ metrics to determine the weights:
+\begin_inset Formula 
+\[
+w_{i,j}^{k,l}\propto\exp\left\{ -\frac{\left|I_{1}\left(i,j\right)-I_{1}\left(k,l\right)\right|^{2}}{2\sigma_{i}^{2}n_{c}}-\frac{\left|i-k\right|^{2}+\left|j-l\right|^{2}}{2\sigma_{d}^{2}}\right\} 
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\sigma_{i}$
+\end_inset
+
+ is a covariance parameter for the intensity similarity cue, 
+\begin_inset Formula $n_{c}$
+\end_inset
+
+ is the number of color channels, and 
+\begin_inset Formula $\sigma_{d}$
+\end_inset
+
+ is a covariance parameter for the spatial distance cue.
+ In our experiments, we used 
+\begin_inset Formula $\sigma_{i}=7$
+\end_inset
+
+ (input range 
+\begin_inset Formula $I_{1}\left(i,j\right)\in\left[0,255\right]$
+\end_inset
+
+) and 
+\begin_inset Formula $\sigma_{d}=7$
+\end_inset
+
+.
+ For the neighborhood 
+\begin_inset Formula $\mathcal{N}\left(i,j\right)$
+\end_inset
+
+ around pixel 
+\begin_inset Formula $i,j$
+\end_inset
+
+, we used a 
+\begin_inset Formula $31\times31$
+\end_inset
+
+ square.
+ Note that the same weights are used to filter both components (
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $v$
+\end_inset
+
+) of the flow field.
+\end_layout
+
 \end_body
 \end_document
