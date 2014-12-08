@@ -82,7 +82,7 @@ theorems-ams
 \begin_body
 
 \begin_layout Title
-Block matching with weighted median filtering for optical flow estimation
+Optical flow estimation using block matching with weighted median filtering
 \end_layout
 
 \begin_layout Author
@@ -168,7 +168,7 @@ filename "relatedWork.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "blockMatching.lyx"
+filename "proposedAlgorithm.lyx"
 
 \end_inset
 
@@ -178,7 +178,7 @@ filename "blockMatching.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "weightedMedianFiltering.lyx"
+filename "evaluationMethod.lyx"
 
 \end_inset
 

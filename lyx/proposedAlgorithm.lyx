@@ -80,11 +80,11 @@ theorems-ams
 
 \begin_body
 
-\begin_layout Subsection
-Block matching
+\begin_layout Section
+Proposed algorithm
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Block-matching"
+name "sec:Proposed-algorithm"
 
 \end_inset
 
@@ -92,66 +92,71 @@ name "sub:Block-matching"
 \end_layout
 
 \begin_layout Standard
-Block matching algorithms are used to find matching blocks of pixels across
- consecutive frames.
- Similar to optical flow estimation, displacement between the matching blocks
- correspond to motion in the video.
- For consecutive frames 
-\begin_inset Formula $I_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $I_{2}$
-\end_inset
-
-, the displacment of block, 
-\begin_inset Formula $B$
-\end_inset
-
-, is determined as follows 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{eqnarray}
-(\hat{u},\hat{v}) & = & \arg\max_{u,v}\sum_{(x,y)\in B}f(I_{2}(x+u,y+v),I(x,y))\label{eq:BMA_eq}
-\end{eqnarray}
-
-\end_inset
-
-where 
-\begin_inset Formula $(\hat{u},\hat{v})$
-\end_inset
-
- is the estimated motion and 
-\begin_inset Formula $f(\cdot)$
-\end_inset
-
- is a similarity measure.
- 
-\end_layout
-
-\begin_layout Standard
-In this project, we implement a modified version of (
+See Fig.
+ TODO for a high level description of the proposed algorithm.
+ The remainder of this section describes each of the key components in more
+ detail.
+ In Subsection 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:BMA_eq"
+reference "sub:Block-matching"
 
 \end_inset
 
-).
- Instead of searching all of 
-\begin_inset Formula $I_{2}$
+, the block matching algorithm is outlined.
+ Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Classic++"
+
 \end_inset
 
- to find a matching block, we restrict possible matches to be within a fixed
- search window.
- In doing so, we constrain the maximum velocity across frames.
- Additionally, we also estimate motion vectors for only non-overlapping
- blocks of pixels across an image and we apply a median filter to smoothen
- the motion vector field.
- For our implementation, we also use normalized correlation for the similarity
- measure.
+ roughly describes the classic++ algorithm from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+, applied to the output of the block matching algorithm.
+ Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Weighted-median-filtering"
+
+\end_inset
+
+ describes the weighted median filtering step.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "blockMatching.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "classicpp.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "weightedMedianFiltering.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \end_body

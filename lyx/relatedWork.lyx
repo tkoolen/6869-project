@@ -82,6 +82,298 @@ theorems-ams
 
 \begin_layout Section
 Related work
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Related-work"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: discuss block matching related work.
+\end_layout
+
+\begin_layout Standard
+Differential optimization methods for optical flow estimation also have
+ a long history.
+ In their seminal work 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "horn1981determining"
+
+\end_inset
+
+, Horn and Schunck developed one of the first such algorithms.
+ The Horn-Schunk algorithm (HS) was based on two key assumptions.
+ The first assumption is intensity constancy: in a sequence of images, changes
+ in the intensity at a pixel location over time are only due to the movement
+ of the surfaces in the scene and not due to changes in illumination.
+ Mathematically, this can be expressed as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+I_{1}\left(i,j\right)=I_{2}\left(i+u_{i,j},j+v_{i,j}\right)\label{eq:data-term}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $I_{1}\left(i,j\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $I_{2}\left(i,j\right)$
+\end_inset
+
+ are the intensities at pixel 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+ in two consecutive frames and 
+\begin_inset Formula $u_{i,j}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i,j}$
+\end_inset
+
+ are the horizontal and vertical components of the optical flow field at
+ the pixel location.
+\end_layout
+
+\begin_layout Standard
+Horn and Schunk recognized that the problem of finding the optical flow
+ using only 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+ is ill-posed.
+ In regions where the intensity is constant (e.g.
+ flat regions and along edges), there are several candidates for 
+\begin_inset Formula $u_{i,j}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i,j}$
+\end_inset
+
+ that satisfy 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+.
+ Indeed, Bertero et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bertero1988ill"
+
+\end_inset
+
+ show that only the optical flow component normal to edges can be determined
+ directly from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+.
+ This is known as the aperture problem.
+ 
+\end_layout
+
+\begin_layout Standard
+To address this, Horn and Schunk made a second assumption: the optical flow
+ varies smoothly across the frame.
+ This leads to an minimization problem with an objective function of the
+ form
+\begin_inset Formula 
+\begin{align}
+E\left(u,v\right) & =\sum_{i,j}\{\rho\left(I_{1}\left(i,j\right)-I_{2}\left(i+u_{i,j},j+v\left(i,j\right)\right)\right)\nonumber \\
+ & +\lambda[\rho\left(u_{i,j}-u_{i+1,j}\right)+\rho\left(u_{i,j}-u_{i,j+1}\right)\nonumber \\
+ & +\rho\left(v_{i,j}-v_{i+1,j}\right)+\rho\left(v_{i,j}-v_{i,j+1}\right)]\}\label{eq:objective}
+\end{align}
+
+\end_inset
+
+where 
+\begin_inset Formula $\rho\left(\cdot\right)$
+\end_inset
+
+ is a quadratic penalty function and 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a regularization parameter.
+ The first term comes from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:data-term"
+
+\end_inset
+
+ and is called the data term, while the second regularizing term is called
+ the smoothness term.
+ Note that even though the penalty function is convex, minimizing 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ is a nonlinear problem since the image intensity 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ is a nonlinear function of the flow field 
+\begin_inset Formula $\left(u,v\right)$
+\end_inset
+
+, so local minima are a problem.
+\end_layout
+
+\begin_layout Standard
+Modern approaches have improved the accuracy of differential optical flow
+ algorithms.
+ These updated approaches often changed the penalty function 
+\begin_inset Formula $\rho\left(\cdot\right)$
+\end_inset
+
+, the optimization scheme and other aspects in minimizing an objective like
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ all at once.
+ Consequently, this has made it difficult to discern which changes significantly
+ impacted accuracy.
+ 
+\end_layout
+
+\begin_layout Standard
+Sun et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+ quantitatively analyzed which commonly used techniques truly improved the
+ accuracy by varying only one part of the algorithm at a time and evaluating
+ performance on the standard Middlebury dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "baker2011database"
+
+\end_inset
+
+.
+ They independently analyzed the effects of 1) the objective function, and
+ 2) the optimization method.
+ Sun et al.
+ note that the objective function is largely unchanged from 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+, used in HS.
+ However, modern optimization techniques differ more significantly from
+ those used in HS.
+ Using modern techniques, even the performance of the original HS objective
+ function is competitive with modern formulations.
+ To avoid converging to a poor local minimum, these modern optimization
+ approaches iteratively refine the optimization problem in the following
+ manner: 
+\end_layout
+
+\begin_layout Enumerate
+If a non-convex penalty function is used, Sun et al.
+ suggest using a graduated non-convexity scheme (GNC, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blake1987visual,black1996robust"
+
+\end_inset
+
+), which slowly morphs the penalty function from a quadratic (convex) version
+ to its final desired non-convex version over several iterations.
+\end_layout
+
+\begin_layout Enumerate
+At each GNC iteration, it is common to use a coarse-to-fine spatial refinement
+ using a Gaussian pyramid 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bergen1992hierarchical"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The implementation details of the coarse-to-fine refinement are of great
+ importance.
+ In particular, accuracy is increased significantly by applying a median
+ filter to the updated flow field computed at each pyramid level after warping
+ to remove outliers.
+ Sun et al.
+ combine the features that they find have the greatest effect on accuracy
+ into a new algorithm they call 
+\emph on
+classic++
+\emph default
+.
+ This algorithm, although comparatively simple, performs competitively on
+ the Middlebury dataset, and will be used as a representative coarse-to-fine
+ optimization method in our comparison.
+\end_layout
+
+\begin_layout Standard
+Sun et al.
+ go on to note that the introduction of the heuristic median filtering step
+ is in fact almost equivalent to changing the objective function 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ to include a non-local term 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li2009new"
+
+\end_inset
+
+.
+ The authors further propose to improve the median filtering heuristic using
+ structure from the image, leading to a weighted median filter, which will
+ be described in more detail in Section 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "sub:Weighted-median-filtering"
+
+\end_inset
+
+.
 \end_layout
 
 \end_body

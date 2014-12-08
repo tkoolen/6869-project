@@ -82,6 +82,13 @@ theorems-ams
 
 \begin_layout Section
 Discussion
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Discussion"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
