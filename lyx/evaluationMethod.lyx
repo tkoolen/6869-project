@@ -92,19 +92,19 @@ name "sec:Evaluation-method"
 \end_layout
 
 \begin_layout Standard
-TODO: section intro.
-\end_layout
+We will use the Middlebury dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "baker2011database"
 
-\begin_layout Subsection
-Dataset
-\end_layout
+\end_inset
 
-\begin_layout Standard
-TODO: middlebury
-\end_layout
-
-\begin_layout Subsection
-Comparison criteria
+ to compare variations of the proposed algorithm to a simple block matching
+ algorithm, as well as coarse-to-fine classic++.
+ The variations of the proposed algorithm are: 1) using unweighted median
+ filtering, 2) using weighted median filtering over the whole image, and
+ 3) using weighted median filtering only near flow boundaries and unweighted
+ median filtering elsewhere.
 \end_layout
 
 \begin_layout Standard
@@ -158,7 +158,11 @@ key "barron1994performance"
 \end_layout
 
 \begin_layout Standard
-Averaged angular error and end point error are the standard metrics for
+While end point error is a simple, intuitive error metric, the main argument
+ for using angular error is that it handles large and very small flows without
+ the amplification inherent in a relative measure of vector differences
+ such as endpoint error.
+ Averaged angular error and endpoint error are the standard metrics for
  comparison on the Middlebury dataset.
  
 \end_layout

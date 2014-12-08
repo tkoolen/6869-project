@@ -91,5 +91,15 @@ name "sub:Classic++"
 
 \end_layout
 
+\begin_layout Standard
+Charbonnier, all that good stuff.
+\end_layout
+
+\begin_layout Standard
+The standard classic++ algorithm is used in a coarse-to-fine setting.
+ Here, we only apply a single pass of the algorithm.
+ TODO.
+\end_layout
+
 \end_body
 \end_document
