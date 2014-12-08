@@ -87,20 +87,27 @@ Introduction
 \begin_layout Standard
 Optical flow estimation is the task of determining the apparent motion of
  surfaces in a visual scene from a sequence of images.
- An important application of optical flow estimation lies in video compression.
- If the motion of surfaces between the frames of a video can be determined
- accurately, then this information can be used to represent the video sequence
- more concisely.
+ Applications of optical flow estimation include video compression, simultaneous
+ localization and mapping (SLAM) in robotics, and motion magnification 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liu2005motion"
+
+\end_inset
+
+.
+ Over the years, various approaches to optical flow estimation have been
+ developed.
+ We will focus on two types: block matching algorithms and coarse-to-fine
+ optimization.
 \end_layout
 
 \begin_layout Standard
-Most current video compression algorithms, including TODO, employ a block
- matching algorithm (BMA) to estimate the optical flow field.
+Block matching algorithms are frequently applied in video compression.
  The goal of a block matching algorithm is to estimate the displacement
  of a (usually rectangular) region of pixels between two subsequent images.
- Blocks that match between subsequent images are typically found by comparing
+ Blocks that match between subsequent images can be found by comparing e.g.
  the sum of squared differences in intensity between blocks in the two images.
- Median filtering can be used to smoothen the output.
  The main reason that BMAs are popular in video compression is their high
  efficiency compared to other methods.
  However, the resulting optical flow fields are not very accurate.
@@ -110,8 +117,14 @@ Most current video compression algorithms, including TODO, employ a block
 \begin_layout Standard
 On the other side of the optical flow estimation spectrum, the most accurate
  algorithms typically employ a differential or variational optimization
- method derived from the classical Lucas-Kanade TODO:cite and Horn-Schunk
- 
+ method derived from the classical Lucas-Kanade 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lucas1981iterative"
+
+\end_inset
+
+ and Horn-Schunk (HS) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "horn1981determining"
@@ -121,9 +134,9 @@ key "horn1981determining"
  algorithms.
  To allow these algorithms to estimate large as well as small motions, modern
  approaches employ coarse-to-fine optimization.
- In coarse-to-fine optimization, the differential optimization method is
- first run on the coarsest level of a Gaussian image pyramid, resulting
- in a rough, intermediate flow field.
+ In coarse-to-fine optimization, the differential method is first run on
+ the coarsest level of a Gaussian image pyramid, resulting in a rough, intermedi
+ate flow field.
  This intermediate flow field is then supersampled and used to initialize
  differential optimization at the next finer pyramid level, and so on continuing
  down the pyramid.
@@ -133,22 +146,40 @@ key "horn1981determining"
 
 \begin_layout Standard
 A key recent improvement in coarse-to-fine optimization methods is the use
- of a weighted median filter (instead of a standard median filter) to smoothen
- the intermediate flow fields at each pyramid level TODO:cite.
+ of a (weighted) median filter to smooth the intermediate flow fields at
+ each pyramid level 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "wedel2009improved,sun2014quantitative"
+
+\end_inset
+
+.
  In weighted median filtering, a weight is assigned to each pixel in some
  neighborhood of a pixel under consideration, and the output is computed
  as the 50% weighted percentile among the neighborhood.
  Current approaches determine the weights using heuristics based on e.g.
- similarity in pixel intensity and distance to the neighboring pixel.
+ similarity in pixel intensity and distance to the neighboring pixel 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-In this paper, we borrow the weighted median filtering technique from coarse-to-
-fine optimization and apply it to the output of a BMA, replacing the standard
- median filtering step.
- We compare the computation time and accuracy of two versions of the proposed
- algorithm, a standard block matching algorithm, and a representative coarse-to-
-fine optimization technique on the standard Middlebury dataset 
+In this paper, we propose a middle ground between the speed of block matching
+ algorithms and the accuracy of coarse-to-fine optimization.
+ The proposed algorithm uses the crude flow field from the BMA to initialize
+ a single pass of a differential (HS-type) method.
+ The weighted median filtering technique is finally applied to the output
+ of the HS algorithm.
+ We compare the computation time and accuracy of 1) a standard block matching
+ algorithm, 2) a representative coarse-to-fine optimization technique, and
+ 3) two versions of the proposed algorithm on the standard Middlebury dataset
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "baker2011database"
@@ -156,9 +187,9 @@ key "baker2011database"
 \end_inset
 
 .
- We find that the proposed algorithm performs slightly better than standard
- block matching in terms of accuracy, but is somewhat slower, though still
- inside an acceptable range for video compression.
+ We find that the proposed algorithm performs significantly better than
+ standard block matching in terms of accuracy, while being much faster than
+ the coarse-to-fine method.
 \end_layout
 
 \begin_layout Standard
@@ -202,19 +233,6 @@ reference "sec:Discussion"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TODO: other angle.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_body
