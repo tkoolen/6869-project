@@ -91,5 +91,77 @@ name "sec:Evaluation-method"
 
 \end_layout
 
+\begin_layout Standard
+TODO: section intro.
+\end_layout
+
+\begin_layout Subsection
+Dataset
+\end_layout
+
+\begin_layout Standard
+TODO: middlebury
+\end_layout
+
+\begin_layout Subsection
+Comparison criteria
+\end_layout
+
+\begin_layout Standard
+We will compare the output of the algorithms in terms of computation time
+ and accuracy.
+ To quantify the accuracy of the output, we use two standard criteria: angular
+ error (AE, 
+\begin_inset Formula $\epsilon_{\alpha}$
+\end_inset
+
+) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "otte1994optical"
+
+\end_inset
+
+, and endpoint error (EPE, 
+\begin_inset Formula $\epsilon_{\Delta}$
+\end_inset
+
+) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "barron1994performance"
+
+\end_inset
+
+, averaged over the image.
+ Given the ground truth pixel displacement at a pixel as 
+\begin_inset Formula $\left(u_{i,j},v_{i,j}\right)$
+\end_inset
+
+ and the estimate computed by an optical flow algorithm as 
+\begin_inset Formula $\left(\hat{u}_{i,j},\hat{v}_{i,j}\right)$
+\end_inset
+
+, these criteria are defined as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\epsilon_{\alpha} & = & \arccos\left(\frac{1+\hat{u}_{i,j}u_{i,j}+\hat{v}_{i,j}v_{i,j}}{\sqrt{1+\hat{u}_{i,j}^{2}+\hat{v}_{i,j}^{2}}\sqrt{1+u_{i,j}^{2}+v_{i,j}^{2}}}\right)\label{eq:AE_metric}\\
+\epsilon_{\Delta} & = & \sqrt{\left(\hat{u}_{i,j}-u_{i,j}\right)^{2}+\left(\hat{v}_{i,j}-v_{i,j}\right)^{2}}\label{eq:EE_metric}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Averaged angular error and end point error are the standard metrics for
+ comparison on the Middlebury dataset.
+ 
+\end_layout
+
 \end_body
 \end_document

@@ -92,27 +92,24 @@ name "sec:Related-work"
 \end_layout
 
 \begin_layout Standard
-In their seminal work 
+TODO: discuss block matching related work.
+\end_layout
+
+\begin_layout Standard
+Differential optimization methods for optical flow estimation also have
+ a long history.
+ In their seminal work 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "horn1981determining"
 
 \end_inset
 
-, Horn and Schunck developed one of the first algorithms to estimate optical
- flow.
- This algorithm was based on two key assumptions.
+, Horn and Schunck developed one of the first such algorithms.
+ The Horn-Schunk algorithm (HS) was based on two key assumptions.
  The first assumption is intensity constancy: in a sequence of images, changes
- in the intensity 
-\begin_inset Formula $I\left(i,j\right)$
-\end_inset
-
- at pixel 
-\begin_inset Formula $\left(i,j\right)$
-\end_inset
-
- are only due to the movement of the surfaces in the scene and not due to
- changes in illumination.
+ in the intensity at a pixel location over time are only due to the movement
+ of the surfaces in the scene and not due to changes in illumination.
  Mathematically, this can be expressed as 
 \end_layout
 
@@ -125,14 +122,18 @@ I_{1}\left(i,j\right)=I_{2}\left(i+u_{i,j},j+v_{i,j}\right)\label{eq:data-term}
 \end_inset
 
 where 
-\begin_inset Formula $I_{1}$
+\begin_inset Formula $I_{1}\left(i,j\right)$
 \end_inset
 
  and 
-\begin_inset Formula $I_{2}$
+\begin_inset Formula $I_{2}\left(i,j\right)$
 \end_inset
 
- are consecutive frames and 
+ are the intensities at pixel 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+ in two consecutive frames and 
 \begin_inset Formula $u_{i,j}$
 \end_inset
 
@@ -140,11 +141,8 @@ where
 \begin_inset Formula $v_{i,j}$
 \end_inset
 
- are the components of the optical flow field at pixel location 
-\begin_inset Formula $\left(i,j\right)$
-\end_inset
-
-.
+ are the horizontal and vertical components of the optical flow field at
+ the pixel location.
 \end_layout
 
 \begin_layout Standard
@@ -198,7 +196,7 @@ reference "eq:data-term"
 \begin_layout Standard
 To address this, Horn and Schunk made a second assumption: the optical flow
  varies smoothly across the frame.
- This leads to an optimization problem with an objective function of the
+ This leads to an minimization problem with an objective function of the
  form
 \begin_inset Formula 
 \begin{align}
@@ -210,7 +208,7 @@ E\left(u,v\right) & =\sum_{i,j}\{\rho\left(I_{1}\left(i,j\right)-I_{2}\left(i+u_
 \end_inset
 
 where 
-\begin_inset Formula $\rho\left(x\right)$
+\begin_inset Formula $\rho\left(\cdot\right)$
 \end_inset
 
  is a quadratic penalty function and 
@@ -246,10 +244,15 @@ reference "eq:objective"
 \end_layout
 
 \begin_layout Standard
-Modern approaches have improved the accuracy of optical flow algorithms,
- as confirmed by performance on the Middlebury dataset.
- These updated approaches often varied the penalty functions, optimization
- schemes, and other aspects in solving 
+Modern approaches have improved the accuracy of differential optical flow
+ algorithms.
+ These updated approaches often replaced the quadratic penalty function
+ 
+\begin_inset Formula $\rho\left(\cdot\right)$
+\end_inset
+
+ with a robust version, and changed optimization schemes and other aspects
+ in minimizing 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:objective"
@@ -268,10 +271,17 @@ key "sun2014quantitative"
 \end_inset
 
  quantitatively analyzed which commonly used techniques truly improved the
- algorithm's accuracy by varying only one part of the algorithm at a time
- and evaluating performance on the Middlebury dataset.
+ accuracy by varying only one part of the algorithm at a time and evaluating
+ performance on the standard Middlebury dataset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "baker2011database"
+
+\end_inset
+
+.
  They independently analyzed the effects of 1) the objective function, and
- 2) the optimization method and implementation practices.
+ 2) the optimization method.
 \end_layout
 
 \begin_layout Standard
@@ -284,11 +294,8 @@ reference "eq:objective"
 \end_inset
 
 , used in HS.
-\end_layout
-
-\begin_layout Standard
-On the side of optimization methods and implementation practices, modern
- techniques differ more significantly from HS.
+ However, modern optimization techniques differ more significantly from
+ those used in HS.
  Using modern techniques, even the performance of the original HS objective
  function is competitive with modern formulations.
  To avoid converging to a poor local minimum, these modern optimization
@@ -297,7 +304,7 @@ On the side of optimization methods and implementation practices, modern
 \end_layout
 
 \begin_layout Enumerate
-When the penalty functions are non-convex, Sun et al.
+If a non-convex penalty function is used, Sun et al.
  suggest using a graduated non-convexity scheme (GNC, 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -310,8 +317,8 @@ key "blake1987visual,black1996robust"
 \end_layout
 
 \begin_layout Enumerate
-At each GNC iteration, it is also common to use a hierarchical, coarse-to-fine
- spatial refinement using a Gaussian pyramid 
+At each GNC iteration, it is common to use a coarse-to-fine spatial refinement
+ using a Gaussian pyramid 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "bergen1992hierarchical"
@@ -322,41 +329,47 @@ key "bergen1992hierarchical"
 \end_layout
 
 \begin_layout Standard
-The main advantage of hierarchical refinement is that it enables both large
- and small displacements to be estimated.
- This is due to the fact that in the low-resolution, downsampled version
- of the original image, large displacements are represented by small pixel
- displacments, which existing optimizations can successfully identify.
- Here, the optical flow field is first estimated coarsely using the first
- pyramid level, and then progressively refined by warping second image toward
- the first image at the next pyramid level.
- This process is continued for the entire pyramid.
-\end_layout
-
-\begin_layout Standard
-The implementation details of the hierarchical refinement are of great importanc
-e.
- Sun et al.
- find that using bicubic spline-based interpolation to warp at each pyramid
- level is more accurate than using other common forms of interpolation.
- Accuracy is also increased significantly by applying a median filter (window
- size 
-\begin_inset Formula $5\times5$
-\end_inset
-
-) to the updated flow field computed at each pyramid level after warping
+The implementation details of the coarse-to-fine refinement are of great
+ importance.
+ In particular, accuracy is increased significantly by applying a median
+ filter to the updated flow field computed at each pyramid level after warping
  to remove outliers.
+ Sun et al.
+ combine the features that have the greatest effect on accuracy into a new
+ algorithm they call Classic++.
+ This algorithm, although comparatively simple, performs competitively on
+ the Middlebury dataset, and will be used as a representative coarse-to-fine
+ optimization method in our comparison.
 \end_layout
 
 \begin_layout Standard
 Sun et al.
- combine the features that improve the accuracy of the optical flow estimation
- the most with respect to HS (a generalized Charbonnier penalty function,
- optimization using a GNC scheme, and hierarchical coarse-to-fine refinement
- with warping using bicubic spline-based interpolation, and median filtering).
- The resulting algorithm is termed Classic++.
- This algorithm, although comparatively simple, performs competitively on
- the Middlebury dataset.
+ go on to note that the introduction of the heuristic median filtering step
+ is in fact almost equivalent to changing the objective function 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ to include a non-local term 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li2009new"
+
+\end_inset
+
+.
+ Recognizing this, the authors propose to improve the median filtering heuristic
+ using structure from the image, leading to a weighted median filter, which
+ will be described in more detail in Section 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "sub:Weighted-median-filtering"
+
+\end_inset
+
+.
 \end_layout
 
 \end_body

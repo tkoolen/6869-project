@@ -82,6 +82,13 @@ theorems-ams
 
 \begin_layout Subsection
 Weighted median filtering
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Weighted-median-filtering"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

@@ -87,8 +87,7 @@ Introduction
 \begin_layout Standard
 Optical flow estimation is the task of determining the apparent motion of
  surfaces in a visual scene from a sequence of images.
- An important application of algorithms for optical flow estimation lies
- in video compression.
+ An important application of optical flow estimation lies in video compression.
  If the motion of surfaces between the frames of a video can be determined
  accurately, then this information can be used to represent the video sequence
  more concisely.
@@ -126,8 +125,8 @@ key "horn1981determining"
  first run on the coarsest level of a Gaussian image pyramid, resulting
  in a rough, intermediate flow field.
  This intermediate flow field is then supersampled and used to initialize
- differential optimization at the next finer pyramid level, continuing down
- the pyramid.
+ differential optimization at the next finer pyramid level, and so on continuing
+ down the pyramid.
  The coarse-to-fine optimization technique tends to make these methods fairly
  slow.
 \end_layout
@@ -137,8 +136,8 @@ A key recent improvement in coarse-to-fine optimization methods is the use
  of a weighted median filter (instead of a standard median filter) to smoothen
  the intermediate flow fields at each pyramid level TODO:cite.
  In weighted median filtering, a weight is assigned to each pixel in some
- neighborhood of a pixel under consideration, and this pixel is replaced
- by the 50% weighted percentile among the neighborhood.
+ neighborhood of a pixel under consideration, and the output is computed
+ as the 50% weighted percentile among the neighborhood.
  Current approaches determine the weights using heuristics based on e.g.
  similarity in pixel intensity and distance to the neighboring pixel.
 \end_layout
@@ -187,7 +186,7 @@ reference "sec:Evaluation-method"
 
 \end_inset
 
-, followed by results in section 
+, followed by results in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Results"
