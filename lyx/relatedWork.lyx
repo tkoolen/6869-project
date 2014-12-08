@@ -246,13 +246,12 @@ reference "eq:objective"
 \begin_layout Standard
 Modern approaches have improved the accuracy of differential optical flow
  algorithms.
- These updated approaches often replaced the quadratic penalty function
- 
+ These updated approaches often changed the penalty function 
 \begin_inset Formula $\rho\left(\cdot\right)$
 \end_inset
 
- with a robust version, and changed optimization schemes and other aspects
- in minimizing 
+, the optimization scheme and other aspects in minimizing an objective like
+ 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:objective"
@@ -262,7 +261,11 @@ reference "eq:objective"
  all at once.
  Consequently, this has made it difficult to discern which changes significantly
  impacted accuracy.
- Sun et al.
+ 
+\end_layout
+
+\begin_layout Standard
+Sun et al.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -282,10 +285,7 @@ key "baker2011database"
 .
  They independently analyzed the effects of 1) the objective function, and
  2) the optimization method.
-\end_layout
-
-\begin_layout Standard
-Sun et al.
+ Sun et al.
  note that the objective function is largely unchanged from 
 \begin_inset CommandInset ref
 LatexCommand eqref
@@ -335,8 +335,12 @@ The implementation details of the coarse-to-fine refinement are of great
  filter to the updated flow field computed at each pyramid level after warping
  to remove outliers.
  Sun et al.
- combine the features that have the greatest effect on accuracy into a new
- algorithm they call Classic++.
+ combine the features that they find have the greatest effect on accuracy
+ into a new algorithm they call 
+\emph on
+classic++
+\emph default
+.
  This algorithm, although comparatively simple, performs competitively on
  the Middlebury dataset, and will be used as a representative coarse-to-fine
  optimization method in our comparison.
@@ -360,9 +364,9 @@ key "li2009new"
 \end_inset
 
 .
- Recognizing this, the authors propose to improve the median filtering heuristic
- using structure from the image, leading to a weighted median filter, which
- will be described in more detail in Section 
+ The authors further propose to improve the median filtering heuristic using
+ structure from the image, leading to a weighted median filter, which will
+ be described in more detail in Section 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "sub:Weighted-median-filtering"

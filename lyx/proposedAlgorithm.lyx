@@ -92,13 +92,57 @@ name "sec:Proposed-algorithm"
 \end_layout
 
 \begin_layout Standard
-TODO: section intro.
+See Fig.
+ TODO for a high level description of the proposed algorithm.
+ The remainder of this section describes each of the key components in more
+ detail.
+ In Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Block-matching"
+
+\end_inset
+
+, the block matching algorithm is outlined.
+ Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Classic++"
+
+\end_inset
+
+ roughly describes the classic++ algorithm from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+, applied to the output of the block matching algorithm.
+ Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Weighted-median-filtering"
+
+\end_inset
+
+ describes the weighted median filtering step.
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
 filename "blockMatching.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "classicpp.lyx"
 
 \end_inset
 
