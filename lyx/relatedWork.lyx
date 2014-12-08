@@ -348,23 +348,7 @@ classic++
 
 \begin_layout Standard
 Sun et al.
- go on to note that the introduction of the heuristic median filtering step
- is in fact almost equivalent to changing the objective function 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:objective"
-
-\end_inset
-
- to include a non-local term 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "li2009new"
-
-\end_inset
-
-.
- The authors further propose to improve the median filtering heuristic using
+ go on to propose an improvement to the median filtering heuristic using
  structure from the image, leading to a weighted median filter, which will
  be described in more detail in Section 
 \begin_inset CommandInset ref

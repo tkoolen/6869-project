@@ -145,13 +145,21 @@ reference "eq:BMA_eq"
 \end_inset
 
  to find a matching block, we restrict possible matches to be within a fixed
- search window.
+ (
+\begin_inset Formula $20\times20$
+\end_inset
+
+ pixel) search window.
  In doing so, we constrain the maximum velocity across frames.
  Additionally, we also estimate motion vectors for only non-overlapping
  blocks of pixels across an image and we apply a median filter to smoothen
  the motion vector field.
  For our implementation, we also use normalized correlation for the similarity
- measure.
+ measure 
+\begin_inset Formula $f\left(\cdot\right)$
+\end_inset
+
+.
 \end_layout
 
 \end_body

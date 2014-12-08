@@ -91,5 +91,18 @@ name "sec:Discussion"
 
 \end_layout
 
+\begin_layout Itemize
+presented a technique that compromises between two very different approaches.
+\end_layout
+
+\begin_layout Itemize
+technique can be used on compressed video, where block matching data was
+ computed during compression and can be obtained from the video file.
+\end_layout
+
+\begin_layout Itemize
+TODO
+\end_layout
+
 \end_body
 \end_document
