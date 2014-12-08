@@ -81,10 +81,10 @@ theorems-ams
 \begin_body
 
 \begin_layout Subsection
-Classic++
+Differential method
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Classic++"
+name "sub:Differential-method"
 
 \end_inset
 

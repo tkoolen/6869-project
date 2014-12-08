@@ -113,9 +113,9 @@ Block matching algorithms are used to find matching blocks of pixels across
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-(\hat{u},\hat{v}) & = & \arg\max_{u,v}\sum_{(x,y)\in B}f(I_{2}(x+u,y+v),I(x,y))\label{eq:BMA_eq}
-\end{eqnarray}
+\begin{equation}
+(\hat{u},\hat{v})=\arg\max_{u,v}\sum_{(x,y)\in B}f(I_{2}(x+u,y+v),I(x,y))\label{eq:BMA_eq}
+\end{equation}
 
 \end_inset
 

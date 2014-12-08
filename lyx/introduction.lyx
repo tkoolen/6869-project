@@ -172,10 +172,9 @@ key "sun2014quantitative"
 \begin_layout Standard
 In this paper, we propose a middle ground between the speed of block matching
  algorithms and the accuracy of coarse-to-fine optimization.
- The proposed algorithm uses the crude flow field from the BMA to initialize
- a single pass of a differential (HS-type) method.
- The weighted median filtering technique is finally applied to the output
- of the HS algorithm.
+ The proposed algorithm uses a filtered version of the crude flow field
+ from the BMA to initialize a single pass of a differential (HS-type) method.
+ Filtering of the BMA flow field is done using a weighted median filter.
  We compare the computation time and accuracy of 1) a standard block matching
  algorithm, 2) a representative coarse-to-fine optimization technique, and
  3) two versions of the proposed algorithm on the standard Middlebury dataset

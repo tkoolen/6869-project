@@ -92,8 +92,14 @@ name "sec:Proposed-algorithm"
 \end_layout
 
 \begin_layout Standard
-See Fig.
- TODO for a high level description of the proposed algorithm.
+See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:High-level-overview"
+
+\end_inset
+
+ for a high level description of the proposed algorithm.
  The remainder of this section describes each of the key components in more
  detail.
  In Subsection 
@@ -107,26 +113,73 @@ reference "sub:Block-matching"
  Subsection 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:Classic++"
+reference "sub:Weighted-median-filtering"
 
 \end_inset
 
- roughly describes the classic++ algorithm from 
+ describes the weighted median filtering step.
+ Subsection 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Differential-method"
+
+\end_inset
+
+ roughly describes the differential method underlying the classic++ algorithm
+ from 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "sun2014quantitative"
 
 \end_inset
 
-, applied to the output of the block matching algorithm.
- Subsection 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Weighted-median-filtering"
+, which is applied to the output of the weighted median filter.
+ The warping step is done using a simple bicubic interpolation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Figures/overview.pdf
+	width 98col%
 
 \end_inset
 
- describes the weighted median filtering step.
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+High level overview of proposed algorithm.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:High-level-overview"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -142,7 +195,7 @@ filename "blockMatching.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "classicpp.lyx"
+filename "weightedMedianFiltering.lyx"
 
 \end_inset
 
@@ -152,7 +205,7 @@ filename "classicpp.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "weightedMedianFiltering.lyx"
+filename "differentialMethod.lyx"
 
 \end_inset
 

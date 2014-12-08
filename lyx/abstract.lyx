@@ -81,13 +81,13 @@ theorems-ams
 \begin_body
 
 \begin_layout Abstract
-Optical flow in a sequence of images can be estimated using a variety of
- techniques.
+The optical flow between a sequence of images can be estimated using a variety
+ of techniques.
  Block matching algorithms (BMAs) can be used to quickly find crude estimates
- of the motion between two subsequent images.
+ of the optical flow.
  In contrast, high accuracy can be achieved by iteratively applying methods
  descending from the classical Horn-Schunk algorithm in a coarse-to-fine
- (pyramid-based) setup.
+ (pyramid-based) scheme.
  A fairly standard practice in such algorithms is to use median filtering
  to smoothen the intermediate flow fields found at each pyramid level.
  More recent approaches replace the median filter with a weighted median
@@ -96,9 +96,9 @@ Optical flow in a sequence of images can be estimated using a variety of
  These algorithms tend to be slow however.
  In this paper, we propose a middle ground between BMAs and coarse-to-fine
  algorithms in terms of accuracy and computation time.
- The proposed algorithm uses the output of a BMA to initialize a single
- pass of an HS-style algorithm, after which a weighted median filter is
- applied.
+ The proposed algorithm applies a weighted median filter to the output of
+ a BMA, and uses this coarse flow estimate to initialize a single pass of
+ an HS-style algorithm.
  Results on the Middlebury dataset show that this approach achieves a higher
  accuracy than block matching, while being significantly faster than coarse-to-f
 ine algorithms.

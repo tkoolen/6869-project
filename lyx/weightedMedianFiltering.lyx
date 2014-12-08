@@ -209,7 +209,7 @@ key "sand2008particle"
 
 \begin_layout Standard
 In tests, we observed that the occlusion metric did not work very well on
- the rough block matching input flow field.
+ the rough input flow field.
  For this reason, we only use intensity similarity and spatial distance
  metrics to determine the weights:
 \begin_inset Formula 
