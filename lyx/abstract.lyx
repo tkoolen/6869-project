@@ -81,26 +81,26 @@ theorems-ams
 \begin_body
 
 \begin_layout Abstract
-Current video compression techniques rely on estimation of the optical flow
- between the frames of a video to find temporal redundancy in a video sequence.
- Typically, such compression techniques employ a block matching algorithms
- to estimate optical flow.
- Block matching algorithms are not very accurate however.
- In contrast, coarse-to-fine (pyramid-based) estimation methods based on
- the classical Horn and Schunk algorithm achieve high accuracy, but tend
- to be slow.
- A fairly standard practice in such techniques is to use median filtering
+Optical flow in a sequence of images can be estimated using a variety of
+ techniques.
+ Block matching algorithms (BMAs) can be used to quickly find crude estimates
+ of the motion between two subsequent images.
+ In contrast, high accuracy can be achieved by applying methods descending
+ from the classical Horn-Schunk (HS) algorithm iteratively in a coarse-to-fine
+ (pyramid-based) optimization.
+ A fairly standard practice in such algorithms is to use median filtering
  to smoothen the intermediate flow fields found at each pyramid level.
  More recent approaches replace the median filter with a weighted median
  filter, placing more weight on neighboring pixels which are likely to belong
  to the same object.
- In this paper, we explore using weighted median filtering in a block matching
- scheme with the goal of achieving a middle ground, with decent accuracy
- but low computation time.
- Results on the Middlebury dataset show that using weighted median filtering
- instead of unweighted median filtering in a block matching algorithm does
- indeed improve the accuracy somewhat, while incurring only a small penalty
- in terms of computation time.
+ These algorithms tend to be slow however.
+ In this paper, we propose a middle ground between BMAs and coarse-to-fine
+ algorithms in terms of accuracy and computation time.
+ The proposed algorithm uses the output of a BMA to initialize a single
+ pass of an HS-style algorithm, after which a weighted median filter is
+ applied.
+ Results on the Middlebury dataset show that this approach achieves a decent
+ accuracy, while being significantly faster than coarse-to-fine algorithms.
 \end_layout
 
 \end_body
