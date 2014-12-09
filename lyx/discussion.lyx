@@ -131,8 +131,7 @@ textbf{BM}
 
 \end_inset
 
- and 
-Classic++.
+ and Classic++.
  We first comment on the algorithm computation time and then on the accuracy
  of our approach.
 \end_layout
@@ -257,6 +256,21 @@ key "sun2014quantitative"
 
 , further work must be done to decrease the run-time of the weighted median
  filter.
+ For the remainder of our analysis, we focus on the performance of just
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -275,21 +289,7 @@ textbf{BM+MF+DM}
 
  ) is twice as fast as that for Classic+.
  In the next section, we discuss the accuracy of our approach.
- For the remainder of our analysis, we focus on the performance of just
  
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+MF+DM}
-\end_layout
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Subsection
@@ -297,11 +297,7 @@ Accuracy Analysis
 \end_layout
 
 \begin_layout Standard
-We observe 
-\end_layout
-
-\begin_layout Standard
-However, compared to Classic++, we see that 
+On average, the acccuracy of 
 \begin_inset ERT
 status open
 
@@ -314,7 +310,7 @@ textbf{BM+MF+DM}
 
 \end_inset
 
- and 
+ as measured by AAE and EPE is better than 
 \begin_inset ERT
 status open
 
@@ -322,18 +318,28 @@ status open
 
 
 \backslash
-textbf{BM+WMF+DM}
+textbf{BM}
 \end_layout
 
 \end_inset
 
- are still highly inaccurate.
- 
+ as we had hoped.
+ However, with an average AAE of 16.65 and EPE of 1.93, we see that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
 \end_layout
 
-\begin_layout Standard
-Upon further observation, we observe that the performance of our algorithm
- is signficantly better for 
+\end_inset
+
+ is still highly inaccurate.
+ In the Middlebury dataset, we observe that the performance of our algorithm
+ is signficantly better for the sequences 
 \emph on
 Dimetrodon
 \emph default
@@ -353,7 +359,7 @@ Hydrangea
 \emph on
 RubberWhale
 \emph default
- than 
+ as compared to 
 \emph on
 Urban
 \emph default
@@ -416,19 +422,6 @@ textbf{BM+MF}
 
 \end_inset
 
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+WMF}
-\end_layout
-
-\end_inset
-
 .
  In Figure 
 \begin_inset CommandInset ref
@@ -450,30 +443,12 @@ textbf{BM+MF}
 
 \end_inset
 
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+WMF}
-\end_layout
-
-\end_inset
-
- are highly distorted.
- This is problematic because this output is used to warp an image which
- is an input to the differential method.
- This warped image is consequently distorted and the differential methods,
- which are effective for only small displacements, cannot correct the original
- flow field.
- 
-\end_layout
-
-\begin_layout Standard
-This result underscores the importance of correctly initializing the block
+ is highly distorted.
+ This is problematic because this flow estimate is used to initialize the
+ input into the differential method.
+ This input is consequently distorted and differential methods, which are
+ effective for only small displacements, cannot correct the large errors.
+ This result underscores the importance of correctly initializing the block
  matching parameters in our algorithm.
  If we examine the underlying images for 
 \emph on
@@ -493,7 +468,7 @@ Venus
  if the patch is small, as there are no clear block correspondences across
  frames.
  One approach to solve this problem is to increase the patch size, thereby
- increasing the amount of details used to find correspondences across frame.
+ increasing the amount of details used to find correspondences across frames.
  Future work should consider dynamically initializing the patch size for
  the block matching algorithm based on the texture of the image.
  After removing 
@@ -508,8 +483,8 @@ Urban3
 \emph on
 Venus
 \emph default
-, we see that we achieve an AAE of 7.93 and 7.79 and an EPE of 0.36 and 0.34
- for 
+ from consideration, we see that we achieve an AAE of 7.93 and an EPE of
+ 0.36 for 
 \begin_inset ERT
 status open
 
@@ -522,7 +497,8 @@ textbf{BM+MF+DM}
 
 \end_inset
 
- and 
+.
+ This is a drastic reduction from the AAE and EPE for 
 \begin_inset ERT
 status open
 
@@ -530,17 +506,25 @@ status open
 
 
 \backslash
-textbf{BM+WMF+DM}
+textbf{BM}
 \end_layout
 
 \end_inset
 
-, respectively.
- 
+ (29.5 and 1.67) and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF}
 \end_layout
 
-\begin_layout Standard
-Furthermore, 
+\end_inset
+
+ (12.58 and 0.57).
 \end_layout
 
 \begin_layout Paragraph
@@ -548,7 +532,7 @@ Contributions:
 \end_layout
 
 \begin_layout Standard
-In this paper, we propose a new algorithm (
+For this project, we propose a new algorithm (
 \begin_inset ERT
 status open
 

@@ -94,8 +94,8 @@ name "sub:Block-matching"
 \begin_layout Standard
 In the proposed algorithm, block matching is used to obtain an initial estimate
  of optical flow.
- In our algorithm, we use normalized correlation for the block matching
- algorithm.
+ In our algorithm, we use normalized correlation as the matching criteria
+ across frames.
  For consecutive frames 
 \begin_inset Formula $I_{1}$
 \end_inset
@@ -151,7 +151,7 @@ reference "eq:BMA_eq"
 
 \end_inset
 
-) 
+) for 
 \begin_inset Formula $4x4$
 \end_inset
 
@@ -201,7 +201,7 @@ reference "fig:High-level-overview"
 \end_inset
 
 .
- For our implementation, we choose a median filter size of 30.
+ For our implementation, we choose a median filter window size of 30.
 \end_layout
 
 \end_body

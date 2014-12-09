@@ -91,8 +91,76 @@ name "sec:Related-work"
 
 \end_layout
 
+\begin_layout Subsection
+Block Matching
+\end_layout
+
 \begin_layout Standard
-TODO: discuss block matching related work.
+Block matching algorithms are used to find correspondences between blocks
+ of pixels across frames.
+ These algorithms are typically used in video compression systems to remove
+ temporal redundancies when encoding sequences of frames.
+ For a block of pixels 
+\begin_inset Formula $B$
+\end_inset
+
+ in frame 
+\series bold
+
+\begin_inset Formula $I_{1}$
+\end_inset
+
+
+\series default
+, block matching algorithms attempt to find the corresponding block in 
+\begin_inset Formula $I_{2}$
+\end_inset
+
+ by solving the following optimization problem
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+(\hat{u},\hat{v}) & = & \arg\min_{u,v}\underset{(x,y)\in B}{\sum}\rho(I_{2}(x+u,y+v),I_{1}(x,y))\label{eq:bma_formulation}
+\end{eqnarray}
+
+\end_inset
+
+where 
+\begin_inset Formula $(\hat{u},\hat{v})$
+\end_inset
+
+ is the displacement vector and 
+\begin_inset Formula $\rho(\cdot,\cdot)$
+\end_inset
+
+ is a penalty function.
+ Typical penalty functions include mean squared error, sum squared error,
+ sum absolute error, normalized correlation, etc.
+ Furthermore, there are several heuristics to reduce the computation time
+ required to solving (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bma_formulation"
+
+\end_inset
+
+).
+ For an overview of these approaches, we refer the interested reader to
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jain1981displacement,lin1997fast"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Differential Methods
 \end_layout
 
 \begin_layout Standard
