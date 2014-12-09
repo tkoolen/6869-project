@@ -91,17 +91,364 @@ name "sec:Discussion"
 
 \end_layout
 
-\begin_layout Itemize
-presented a technique that compromises between two very different approaches.
+\begin_layout Standard
+From Tables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:time_table"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:epe_table"
+
+\end_inset
+
+, we see that on average, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
 \end_layout
 
-\begin_layout Itemize
-technique can be used on compressed video, where block matching data was
- computed during compression and can be obtained from the video file.
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
 \end_layout
 
-\begin_layout Itemize
-TODO
+\end_inset
+
+ outperform the block matching algorithms and are faster than Classic++.
+ However, compared to Classic++, we see that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+ are still highly inaccurate.
+ 
+\end_layout
+
+\begin_layout Standard
+Upon further observation, we observe that the performance of our algorithm
+ is signficantly better for 
+\emph on
+Dimetrodon
+\emph default
+, 
+\emph on
+Grove2
+\emph default
+, 
+\emph on
+Grove3
+\emph default
+, 
+\emph on
+Hydrangea
+\emph default
+, and 
+\emph on
+RubberWhale
+\emph default
+ than 
+\emph on
+Urban
+\emph default
+2, 
+\emph on
+Urban3
+\emph default
+, and 
+\emph on
+Venus
+\emph default
+.
+ This fact is also visually apparent in Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:good_optical flow estimates"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bad_flow_estimates"
+
+\end_inset
+
+, which show the resulting output of our algorithms.
+ The difference in performance can be explained by examining the filtered
+ block matching output in our pipeline (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:High-level-overview"
+
+\end_inset
+
+) in Figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:good_optical flow estimates"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bad_flow_estimates"
+
+\end_inset
+
+ in the columns labeled 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF}
+\end_layout
+
+\end_inset
+
+.
+ In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:bad_flow_estimates"
+
+\end_inset
+
+, we see that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF}
+\end_layout
+
+\end_inset
+
+ are highly distorted.
+ This is problematic because this output is used to warp an image which
+ is an input to the differential method.
+ This warped image is consequently distorted and the differential methods,
+ which are effective for only small displacements, cannot correct the original
+ flow field.
+ 
+\end_layout
+
+\begin_layout Standard
+This result underscores the importance of correctly initializing the block
+ matching parameters in our algorithm.
+ If we examine the underlying images for 
+\emph on
+Urban
+\emph default
+2, 
+\emph on
+Urban3
+\emph default
+, and 
+\emph on
+Venus
+\emph default
+, we see that except for the edges, the images contain several flat regions
+ or repetitive textures.
+ These scenarios are difficult for block matching algorithms, especially
+ if the patch is small, as there are no clear block correspondences across
+ frames.
+ One approach to solve this problem is to increase the patch size, thereby
+ increasing the amount of details used to find correspondences across frame.
+ Future work should consider dynamically initializing the patch size for
+ the block matching algorithm based on the texture of the image.
+ After removing 
+\emph on
+Urban
+\emph default
+2, 
+\emph on
+Urban3
+\emph default
+, and 
+\emph on
+Venus
+\emph default
+, we see that we achieve an AAE of 7.93 and 7.79 and an EPE of 0.36 and 0.34
+ for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+, respectively.
+ 
+\end_layout
+
+\begin_layout Standard
+Furthermore, we also note that the run-time of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+ is nearly twice that of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ with a negligible improvement in AAE and EPE.
+ For certain pairs of images, we see that the run-time of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+ is even greater than Classic++.
+ As noted in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+, further work must be done to decrease the run-time of the weighted median
+ filter.
+\end_layout
+
+\begin_layout Paragraph
+Contributions:
+\end_layout
+
+\begin_layout Standard
+In this paper, we propose a new algorithm (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ ) for optical flow estimation which uses the coarse output of block matching
+ algorithms to initialize differential methods used to refine the flow estimate.
+ When the parameters are properly initialized, we achieved performance that
+ exceeds block matching algorithms (AAE=7.93 and EPE=0.36 compared to AAE=12.58
+ and EPE=0.57) with a run-time that is more than twice as fast as that of
+ Classic++ (109 seconds compared to 254 seconds).
+ 
 \end_layout
 
 \end_body
