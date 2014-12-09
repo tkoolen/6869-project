@@ -92,10 +92,10 @@ name "sub:Block-matching"
 \end_layout
 
 \begin_layout Standard
-Block matching algorithms are used to find matching blocks of pixels across
- consecutive frames.
- Similar to optical flow estimation, displacement between the matching blocks
- correspond to motion in the video.
+In the proposed algorithm, block matching is used to obtain an initial estimate
+ of optical flow.
+ In our algorithm, we use normalized correlation for the block matching
+ algorithm.
  For consecutive frames 
 \begin_inset Formula $I_{1}$
 \end_inset
@@ -114,7 +114,7 @@ Block matching algorithms are used to find matching blocks of pixels across
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-(\hat{u},\hat{v})=\arg\max_{u,v}\sum_{(x,y)\in B}f(I_{2}(x+u,y+v),I(x,y))\label{eq:BMA_eq}
+(\hat{u},\hat{v})=\arg\max_{u,v}\frac{\underset{(x,y)\in B}{\sum}I_{2}(x+u,y+v)\cdot I_{1}(x,y)}{\sqrt{\underset{(x,y)\in B}{\sum}I_{2}(x+u,y+v)^{2}}\sqrt{\underset{(x,y)\in B}{\sum}I(x,y)^{2}}}\label{eq:BMA_eq}
 \end{equation}
 
 \end_inset
@@ -123,43 +123,85 @@ where
 \begin_inset Formula $(\hat{u},\hat{v})$
 \end_inset
 
- is the estimated motion and 
-\begin_inset Formula $f(\cdot)$
-\end_inset
-
- is a similarity measure.
+ is the estimated motion.
  
 \end_layout
 
 \begin_layout Standard
-In this project, we implement a modified version of (
+To minimize the run-time in solving (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:BMA_eq"
 
 \end_inset
 
-).
- Instead of searching all of 
-\begin_inset Formula $I_{2}$
+), we restrict 
+\begin_inset Formula $u,v$
 \end_inset
 
- to find a matching block, we restrict possible matches to be within a fixed
- (
+ to be within a fixed (
 \begin_inset Formula $20\times20$
 \end_inset
 
  pixel) search window.
- In doing so, we constrain the maximum velocity across frames.
- Additionally, we also estimate motion vectors for only non-overlapping
- blocks of pixels across an image and we apply a median filter to smoothen
- the motion vector field.
- For our implementation, we also use normalized correlation for the similarity
- measure 
-\begin_inset Formula $f\left(\cdot\right)$
+ In our implementation, we also solve (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BMA_eq"
+
+\end_inset
+
+) 
+\begin_inset Formula $4x4$
+\end_inset
+
+ blocks of pixels.
+ In summary, we obtain an initial estimate of optical flow by the following
+ algorithm:
+\end_layout
+
+\begin_layout Enumerate
+Subdivide 
+\begin_inset Formula $I_{1}$
+\end_inset
+
+ into non-overlapping 
+\begin_inset Formula $4x4$
+\end_inset
+
+ blocks of pixels
+\end_layout
+
+\begin_layout Enumerate
+For each block, we solve (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:BMA_eq"
+
+\end_inset
+
+) while restricting 
+\begin_inset Formula $u,v$
+\end_inset
+
+ to be within a fixed (
+\begin_inset Formula $20\times20$
+\end_inset
+
+ pixel) search window
+\end_layout
+
+\begin_layout Standard
+To remove spurious flow estimates, we then apply a median filter to the
+ output of the block matching component in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:High-level-overview"
+
 \end_inset
 
 .
+ For our implementation, we choose a median filter size of 30.
 \end_layout
 
 \end_body
