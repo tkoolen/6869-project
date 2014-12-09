@@ -92,24 +92,30 @@ name "sec:Evaluation-method"
 \end_layout
 
 \begin_layout Standard
-We will use the Middlebury dataset 
+We use 8 sequences from the Middlebury dataset 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "baker2011database"
 
 \end_inset
 
- to compare variations of the proposed algorithm to a simple block matching
- algorithm, as well as coarse-to-fine classic++.
- The variations of the proposed algorithm are: 1) using unweighted median
- filtering, 2) using weighted median filtering over the whole image, and
- 3) using weighted median filtering only near flow boundaries and unweighted
- median filtering elsewhere.
+, where ground truth flow was available, to evaluate the proposed algorithm.
+ We also evaluate block matching and Classic++ on the same sequences.
+ We vary the median filtering block in the pipeline in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:High-level-overview"
+
+\end_inset
+
+ in our tests.
+ 
 \end_layout
 
 \begin_layout Standard
-We will compare the output of the algorithms in terms of computation time
- and accuracy.
+We evaluate the algorithms in terms of computation time and accuracy.
+ We implemented the algorithms using MATLAB on a MacBook Air with a 1.7 GHz
+ Intel i5 Processor.
  To quantify the accuracy of the output, we use two standard criteria: angular
  error (AE, 
 \begin_inset Formula $\epsilon_{\alpha}$

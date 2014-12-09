@@ -92,34 +92,8 @@ name "sec:Results"
 \end_layout
 
 \begin_layout Standard
-To test our methods, we evaluated our algorithms, which we denote as 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+MF+DM}
-\end_layout
-
-\end_inset
-
- and 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+WMF+DM}
-\end_layout
-
-\end_inset
-
-, respectively, against 8 pairs of images in the Middlebury optical flow
- dataset 
+We present the results of applying our algorithm, block matching, and Classic++
+ to 8 pairs of images in the Middlebury optical flow dataset 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "baker2011database"
@@ -127,56 +101,7 @@ key "baker2011database"
 \end_inset
 
 .
- Additionally, we also evaluate the raw output of our block matching algorithm
- (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM}
-\end_layout
-
-\end_inset
-
-), the median filtered output (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+MF}
-\end_layout
-
-\end_inset
-
-), and the weighted median filter output (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+WMF}
-\end_layout
-
-\end_inset
-
-) on the dataset.
- We compare our results against the flow estimates obtained by Classic++
- and the ground truth.
- For each approach, we measured the run-time, average angular error (AAE),
- and the average endpoint error (EPE).
- 
-\end_layout
-
-\begin_layout Standard
-Tables 
+ In Tables 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:time_table"
@@ -197,8 +122,109 @@ reference "tab:epe_table"
 
 \end_inset
 
- summarizes our results on Middlebury dataset.
- Figures 
+, we present the results for the following algorithms: blocking matching
+ (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM}
+\end_layout
+
+\end_inset
+
+), our approach using a median filter (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+) and weighted median filter (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+), and Classic++.
+ To understand how the changes in our pipeline (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:High-level-overview"
+
+\end_inset
+
+) affect our algorithm's accuracy, we also present results for the output
+ of the median filter block (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF}
+\end_layout
+
+\end_inset
+
+) and its weighted variant (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF}
+\end_layout
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:time_table"
+
+\end_inset
+
+ presents the computation time for each of the algorithm, and Tables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:AAE_table"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:epe_table"
+
+\end_inset
+
+ present the AAE and EPE for the algorithms, respectively.
+ We also visualize the output of our approaches in Figures 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:good_optical flow estimates"
@@ -212,7 +238,7 @@ reference "fig:bad_flow_estimates"
 
 \end_inset
 
- visualize the output of our algorithms.
+.
 \end_layout
 
 \begin_layout Standard
@@ -220,7 +246,7 @@ reference "fig:bad_flow_estimates"
 placement p
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center

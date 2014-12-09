@@ -92,21 +92,7 @@ name "sec:Discussion"
 \end_layout
 
 \begin_layout Standard
-From Tables 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:time_table"
-
-\end_inset
-
--
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:epe_table"
-
-\end_inset
-
-, we see that on average, 
+We analyze the performance of 
 \begin_inset ERT
 status open
 
@@ -132,8 +118,190 @@ textbf{BM+WMF+DM}
 
 \end_inset
 
- outperform the block matching algorithms and are faster than Classic++.
- However, compared to Classic++, we see that 
+ and compare it to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM}
+\end_layout
+
+\end_inset
+
+ and 
+Classic++.
+ We first comment on the algorithm computation time and then on the accuracy
+ of our approach.
+\end_layout
+
+\begin_layout Subsection
+Computation Time Analysis
+\end_layout
+
+\begin_layout Standard
+We observe that on average the computation time for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ (106 seconds) and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+ (204 seconds) is faster than Classic++ (252 seconds).
+ The computation time is reduced because our approach replaces coarse-to-fine
+ optimization with blocking matching, which is used to initialize the differenti
+al method for optical flow determination.
+ The block matching algorithm requires 19 seconds to complete.
+ 
+\end_layout
+
+\begin_layout Standard
+We also note that the run-time of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+ is nearly twice that of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ with a negligible improvement in AAE and EPE.
+ For certain pairs of images, we see that the run-time of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF+DM}
+\end_layout
+
+\end_inset
+
+ is even greater than Classic++.
+ This fact becomes evident when we compare the average time spent to obtain
+ the filtered blocking matching output.
+ The computation time spent for this initialization is 27 seconds when the
+ block matching output is median filtered (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF}
+\end_layout
+
+\end_inset
+
+) and 123 seconds with weighted median filter (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+WMF}
+\end_layout
+
+\end_inset
+
+).
+ As noted in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
+
+\end_inset
+
+, further work must be done to decrease the run-time of the weighted median
+ filter.
+\end_layout
+
+\begin_layout Standard
+In summary, the computation time for our approach (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+ ) is twice as fast as that for Classic+.
+ In the next section, we discuss the accuracy of our approach.
+ For the remainder of our analysis, we focus on the performance of just
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{BM+MF+DM}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Accuracy Analysis
+\end_layout
+
+\begin_layout Standard
+We observe 
+\end_layout
+
+\begin_layout Standard
+However, compared to Classic++, we see that 
 \begin_inset ERT
 status open
 
@@ -372,56 +540,7 @@ textbf{BM+WMF+DM}
 \end_layout
 
 \begin_layout Standard
-Furthermore, we also note that the run-time of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+WMF+DM}
-\end_layout
-
-\end_inset
-
- is nearly twice that of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+MF+DM}
-\end_layout
-
-\end_inset
-
- with a negligible improvement in AAE and EPE.
- For certain pairs of images, we see that the run-time of 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+WMF+DM}
-\end_layout
-
-\end_inset
-
- is even greater than Classic++.
- As noted in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "sun2014quantitative"
-
-\end_inset
-
-, further work must be done to decrease the run-time of the weighted median
- filter.
+Furthermore, 
 \end_layout
 
 \begin_layout Paragraph
