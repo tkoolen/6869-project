@@ -80,11 +80,11 @@ theorems-ams
 
 \begin_body
 
-\begin_layout Subsection
-Block matching
+\begin_layout Section
+Conclusion
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Block-matching"
+name "sec:Conclusion"
 
 \end_inset
 
@@ -92,74 +92,27 @@ name "sub:Block-matching"
 \end_layout
 
 \begin_layout Standard
-In the proposed algorithm, block matching is used to obtain an initial estimate
- of optical flow.
- In our algorithm, we use normalized correlation as the matching criterion
- across frames.
- For consecutive frames 
-\begin_inset Formula $I_{1}$
-\end_inset
+For this project, we proposed a new algorithm (
+\begin_inset ERT
+status open
 
- and 
-\begin_inset Formula $I_{2}$
-\end_inset
+\begin_layout Plain Layout
 
-, the displacment of block 
-\begin_inset Formula $B$
-\end_inset
 
- is determined as follows 
+\backslash
+textbf{BM+MF+DM}
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-(\hat{u},\hat{v})=\arg\max_{u,v}\frac{\underset{(x,y)\in B}{\sum}I_{2}(x+u,y+v)\cdot I_{1}(x,y)}{\sqrt{\underset{(x,y)\in B}{\sum}I_{2}(x+u,y+v)^{2}}\sqrt{\underset{(x,y)\in B}{\sum}I(x,y)^{2}}}\label{eq:BMA_eq}
-\end{equation}
-
 \end_inset
 
-where 
-\begin_inset Formula $(\hat{u},\hat{v})$
-\end_inset
-
- is the estimated motion.
+ ) for optical flow estimation which uses the coarse output of a block matching
+ algorithm to initialize a differential method used to refine the flow estimate.
+ With our choice of parameters, we achieved performance that exceeds the
+ accuracy of block matching algorithms (AAE = 7.93 and EPE = 0.36 compared
+ to AAE = 12.58 and EPE = 0.57) with a run-time that is less than half of
+ that of classic++ (109 seconds compared to 254 seconds) on the Middlebury
+ training set.
  
-\end_layout
-
-\begin_layout Standard
-To reduce the run-time in solving (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:BMA_eq"
-
-\end_inset
-
-), we restrict 
-\begin_inset Formula $u,v$
-\end_inset
-
- to be within a fixed (
-\begin_inset Formula $20\times20$
-\end_inset
-
- pixel) search window.
- In our implementation, we use 
-\begin_inset Formula $4\times4$
-\end_inset
-
- blocks of pixels 
-\begin_inset Formula $B$
-\end_inset
-
- in the optimization (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:BMA_eq"
-
-\end_inset
-
-).
 \end_layout
 
 \end_body

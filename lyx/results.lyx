@@ -92,16 +92,7 @@ name "sec:Results"
 \end_layout
 
 \begin_layout Standard
-We present the results of applying our algorithm, block matching, and Classic++
- to 8 pairs of images in the Middlebury optical flow dataset 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "baker2011database"
-
-\end_inset
-
-.
- In Tables 
+In Tables 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:time_table"
@@ -136,7 +127,7 @@ textbf{BM}
 
 \end_inset
 
-), our approach using a median filter (
+), our approach using an unweighted median filter (
 \begin_inset ERT
 status open
 
@@ -162,7 +153,7 @@ textbf{BM+WMF+DM}
 
 \end_inset
 
-), and Classic++.
+), and classic++.
  To understand how the changes in our pipeline (Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -209,7 +200,8 @@ reference "tab:time_table"
 
 \end_inset
 
- presents the computation time for each of the algorithm, and Tables 
+ presents the computation time for each of these algorithms, and Tables
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:AAE_table"

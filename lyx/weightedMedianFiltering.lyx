@@ -101,8 +101,8 @@ key "wedel2009improved"
 \end_inset
 
 .
- They observed that this (unweighted) median filtering technique increases
- the robustness to sampling artifacts in the image data.
+ The authors observed that this (unweighted) median filtering technique
+ increases the robustness to sampling artifacts in the image data.
  In a thorough comparison study, Sun et al.
  found that this median filtering step is in fact one of the factors that
  have most improved accuracy in modern optical flow estimation algorithms
@@ -184,12 +184,8 @@ where
 \end_layout
 
 \begin_layout Enumerate
-similarity in intensity (for grayscale images) or color of the input image
- 
-\begin_inset Formula $I_{1}$
-\end_inset
-
-
+similarity in intensity (for grayscale images) or color of pixels in the
+ first input image
 \end_layout
 
 \begin_layout Enumerate
@@ -209,13 +205,14 @@ key "sand2008particle"
 
 \begin_layout Standard
 In tests, we observed that the occlusion metric did not work very well on
- the rough input flow field.
+ the rough input flow field obtained from block matching.
  For this reason, we only use intensity similarity and spatial distance
  metrics to determine the weights:
 \begin_inset Formula 
-\[
-w_{i,j}^{k,l}\propto\exp\left\{ -\frac{\left|I_{1}\left(i,j\right)-I_{1}\left(k,l\right)\right|^{2}}{2\sigma_{i}^{2}n_{c}}-\frac{\left|i-k\right|^{2}+\left|j-l\right|^{2}}{2\sigma_{d}^{2}}\right\} 
-\]
+\begin{multline*}
+w_{i,j}^{k,l}\propto\exp\left\{ -\frac{\left|C_{1}\left(i,j\right)-C_{1}\left(k,l\right)\right|^{2}}{2\sigma_{i}^{2}n_{c}}\right\} \cdot\\
+\exp\left\{ -\frac{\left|i-k\right|^{2}+\left|j-l\right|^{2}}{2\sigma_{d}^{2}}\right\} 
+\end{multline*}
 
 \end_inset
 
@@ -223,11 +220,16 @@ where
 \begin_inset Formula $\sigma_{i}$
 \end_inset
 
- is a covariance parameter for the intensity similarity cue, 
+ is a covariance parameter for the color similarity cue, 
 \begin_inset Formula $n_{c}$
 \end_inset
 
- is the number of color channels, and 
+ is the number of color channels, the 
+\begin_inset Formula $C_{i}\left(\cdot,\cdot\right):\mathbb{Z}^{2}\mapsto\mathbb{\mathbb{R}}^{n_{c}}$
+\end_inset
+
+ are the image color intensity functions or simply the intensities in the
+ grayscale input case, and 
 \begin_inset Formula $\sigma_{d}$
 \end_inset
 
@@ -237,7 +239,7 @@ where
 \end_inset
 
  (input range 
-\begin_inset Formula $I_{1}\left(i,j\right)\in\left[0,255\right]$
+\begin_inset Formula $C_{i}\left(i,j\right)\in\left[0,255\right]^{n_{c}}$
 \end_inset
 
 ) and 

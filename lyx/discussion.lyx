@@ -131,7 +131,7 @@ textbf{BM}
 
 \end_inset
 
- and Classic++.
+ and classic++.
  We first comment on the algorithm computation time and then on the accuracy
  of our approach.
 \end_layout
@@ -167,16 +167,16 @@ textbf{BM+WMF+DM}
 
 \end_inset
 
- (204 seconds) is faster than Classic++ (252 seconds).
+ (204 seconds) is faster than classic++ (252 seconds).
  The computation time is reduced because our approach replaces coarse-to-fine
- optimization with blocking matching, which is used to initialize the differenti
-al method for optical flow determination.
- The block matching algorithm requires 19 seconds to complete.
+ optimization with block matching, which is used to initialize the differential
+ method for optical flow determination.
+ The block matching algorithm takes 19 seconds to complete on average.
  
 \end_layout
 
 \begin_layout Standard
-We also note that the run-time of 
+We also note that the runtime of 
 \begin_inset ERT
 status open
 
@@ -216,7 +216,7 @@ textbf{BM+WMF+DM}
 
 \end_inset
 
- is even greater than Classic++.
+ is even greater than classic++.
  This fact becomes evident when we compare the average time spent to obtain
  the filtered blocking matching output.
  The computation time spent for this initialization is 27 seconds when the
@@ -254,7 +254,7 @@ key "sun2014quantitative"
 
 \end_inset
 
-, further work must be done to decrease the run-time of the weighted median
+, further work must be done to decrease the runtime of the weighted median
  filter.
  For the remainder of our analysis, we focus on the performance of just
  
@@ -287,7 +287,7 @@ textbf{BM+MF+DM}
 
 \end_inset
 
- ) is twice as fast as that for Classic+.
+ ) is half of that for classic+.
  In the next section, we discuss the accuracy of our approach.
  
 \end_layout
@@ -323,7 +323,7 @@ textbf{BM}
 
 \end_inset
 
- as we had hoped.
+, as we had hoped.
  However, with an average AAE of 16.65 and EPE of 1.93, we see that 
 \begin_inset ERT
 status open
@@ -448,8 +448,8 @@ textbf{BM+MF}
  input into the differential method.
  This input is consequently distorted and differential methods, which are
  effective for only small displacements, cannot correct the large errors.
- This result underscores the importance of correctly initializing the block
- matching parameters in our algorithm.
+ This result underscores the importance of correctly setting the block matching
+ parameters in our algorithm.
  If we examine the underlying images for 
 \emph on
 Urban
@@ -525,33 +525,6 @@ textbf{BM+MF}
 \end_inset
 
  (12.58 and 0.57).
-\end_layout
-
-\begin_layout Paragraph
-Contributions:
-\end_layout
-
-\begin_layout Standard
-For this project, we propose a new algorithm (
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-textbf{BM+MF+DM}
-\end_layout
-
-\end_inset
-
- ) for optical flow estimation which uses the coarse output of block matching
- algorithms to initialize differential methods used to refine the flow estimate.
- When the parameters are properly initialized, we achieved performance that
- exceeds block matching algorithms (AAE=7.93 and EPE=0.36 compared to AAE=12.58
- and EPE=0.57) with a run-time that is more than twice as fast as that of
- Classic++ (109 seconds compared to 254 seconds).
- 
 \end_layout
 
 \end_body

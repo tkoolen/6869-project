@@ -121,9 +121,9 @@ Block matching algorithms are used to find correspondences between blocks
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-(\hat{u},\hat{v}) & = & \arg\min_{u,v}\underset{(x,y)\in B}{\sum}\rho(I_{2}(x+u,y+v),I_{1}(x,y))\label{eq:bma_formulation}
-\end{eqnarray}
+\begin{equation}
+(\hat{u},\hat{v})=\arg\min_{u,v}\underset{(x,y)\in B}{\sum}\rho(I_{2}(x+u,y+v),I_{1}(x,y))\label{eq:bma_formulation}
+\end{equation}
 
 \end_inset
 
@@ -131,7 +131,7 @@ where
 \begin_inset Formula $(\hat{u},\hat{v})$
 \end_inset
 
- is the displacement vector and 
+ is the estimated displacement vector and 
 \begin_inset Formula $\rho(\cdot,\cdot)$
 \end_inset
 
@@ -139,14 +139,14 @@ where
  Typical penalty functions include mean squared error, sum squared error,
  sum absolute error, normalized correlation, etc.
  Furthermore, there are several heuristics to reduce the computation time
- required to solving (
+ required to solve 
 \begin_inset CommandInset ref
-LatexCommand ref
+LatexCommand eqref
 reference "eq:bma_formulation"
 
 \end_inset
 
-).
+.
  For an overview of these approaches, we refer the interested reader to
  
 \begin_inset CommandInset citation
@@ -164,8 +164,8 @@ Differential Methods
 \end_layout
 
 \begin_layout Standard
-Differential optimization methods for optical flow estimation also have
- a long history.
+Differential optimization methods for optical flow estimation have a long
+ history.
  In their seminal work 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -178,7 +178,8 @@ key "horn1981determining"
  The first assumption is intensity constancy: in a sequence of images, changes
  in the intensity at a pixel location over time are only due to the movement
  of the surfaces in the scene and not due to changes in illumination.
- Mathematically, this can be expressed as 
+ Mathematically, this can be expressed (in the discrete formulation) as
+ 
 \end_layout
 
 \begin_layout Standard
@@ -420,7 +421,7 @@ Sun et al.
  structure from the image, leading to a weighted median filter, which will
  be described in more detail in Section 
 \begin_inset CommandInset ref
-LatexCommand eqref
+LatexCommand ref
 reference "sub:Weighted-median-filtering"
 
 \end_inset

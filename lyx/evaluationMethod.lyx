@@ -100,7 +100,7 @@ key "baker2011database"
 \end_inset
 
 , where ground truth flow was available, to evaluate the proposed algorithm.
- We also evaluate block matching and Classic++ on the same sequences.
+ We also evaluate block matching and classic++ on the same sequences.
  We vary the median filtering block in the pipeline in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -153,10 +153,10 @@ key "barron1994performance"
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray}
-\epsilon_{\alpha} & = & \arccos\left(\frac{1+\hat{u}_{i,j}u_{i,j}+\hat{v}_{i,j}v_{i,j}}{\sqrt{1+\hat{u}_{i,j}^{2}+\hat{v}_{i,j}^{2}}\sqrt{1+u_{i,j}^{2}+v_{i,j}^{2}}}\right)\label{eq:AE_metric}\\
-\epsilon_{\Delta} & = & \sqrt{\left(\hat{u}_{i,j}-u_{i,j}\right)^{2}+\left(\hat{v}_{i,j}-v_{i,j}\right)^{2}}\label{eq:EE_metric}
-\end{eqnarray}
+\begin{align}
+\epsilon_{\alpha} & =\arccos\left(\frac{1+\hat{u}_{i,j}u_{i,j}+\hat{v}_{i,j}v_{i,j}}{\sqrt{1+\hat{u}_{i,j}^{2}+\hat{v}_{i,j}^{2}}\sqrt{1+u_{i,j}^{2}+v_{i,j}^{2}}}\right)\label{eq:AE_metric}\\
+\epsilon_{\Delta} & =\sqrt{\left(\hat{u}_{i,j}-u_{i,j}\right)^{2}+\left(\hat{v}_{i,j}-v_{i,j}\right)^{2}}\label{eq:EE_metric}
+\end{align}
 
 \end_inset
 
@@ -167,7 +167,14 @@ key "barron1994performance"
 While end point error is a simple, intuitive error metric, the main argument
  for using angular error is that it handles large and very small flows without
  the amplification inherent in a relative measure of vector differences
- such as endpoint error.
+ such as endpoint error 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "otte1994optical"
+
+\end_inset
+
+.
  Averaged angular error and endpoint error are the standard metrics for
  comparison on the Middlebury dataset.
  

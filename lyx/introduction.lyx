@@ -111,7 +111,6 @@ Block matching algorithms are frequently applied in video compression.
  The main reason that BMAs are popular in video compression is their high
  efficiency compared to other methods.
  However, the resulting optical flow fields are not very accurate.
- TODO:cite if possible.
 \end_layout
 
 \begin_layout Standard
@@ -177,8 +176,8 @@ In this paper, we propose a middle ground between the speed of block matching
  Filtering of the BMA flow field is done using a weighted median filter.
  We compare the computation time and accuracy of 1) a standard block matching
  algorithm, 2) a representative coarse-to-fine optimization technique, and
- 3) two versions of the proposed algorithm on the standard Middlebury dataset
- 
+ 3) our proposed algorithm with weighted and unweighted median filtering
+ on the standard Middlebury dataset 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "baker2011database"
@@ -224,10 +223,17 @@ reference "sec:Results"
 \end_inset
 
 .
- We discuss the results and conclude the paper in Section 
+ We discuss the results in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Discussion"
+
+\end_inset
+
+ and conclude the paper in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Conclusion"
 
 \end_inset
 
