@@ -352,8 +352,8 @@ key "baker2011database"
 \end_inset
 
 .
- They independently analyzed the effects of 1) the objective function, and
- 2) the optimization method.
+ They independently analyzed the effects of the objective function and the
+ optimization method.
  Sun et al.
  note that the objective function is largely unchanged from 
 \begin_inset CommandInset ref
@@ -363,13 +363,11 @@ reference "eq:objective"
 \end_inset
 
 , used in HS.
- However, modern optimization techniques differ more significantly from
- those used in HS.
+ However, optimization techniques have changed more significantly.
  Using modern techniques, even the performance of the original HS objective
  function is competitive with modern formulations.
  To avoid converging to a poor local minimum, these modern optimization
- approaches iteratively refine the optimization problem in the following
- manner: 
+ approaches iteratively refine the optimization problem as follows: 
 \end_layout
 
 \begin_layout Enumerate

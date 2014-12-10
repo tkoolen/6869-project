@@ -92,13 +92,30 @@ name "sub:Differential-method"
 \end_layout
 
 \begin_layout Standard
-Charbonnier, all that good stuff.
-\end_layout
+The classic++ algorithm from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sun2014quantitative"
 
-\begin_layout Standard
-The standard classic++ algorithm is used in a coarse-to-fine setting.
- Here, we only apply a single pass of the algorithm.
- TODO.
+\end_inset
+
+ uses a differential method inside a coarse-to-fine loop.
+ To allow for a fair comparison, we use a single pass of the same differential
+ method in our work, applied to the full image.
+ The GNC outer loop of the classic++ algorithm is also removed; the penalty
+ function 
+\begin_inset Formula $\rho\left(\cdot\right)$
+\end_inset
+
+ in 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:objective"
+
+\end_inset
+
+ is a simple convex quadratic.
+ This effectively reduces the method to Horn-Schunk.
 \end_layout
 
 \end_body
